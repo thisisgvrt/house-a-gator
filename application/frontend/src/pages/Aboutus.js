@@ -9,7 +9,9 @@ const Aboutus = () => {
 //lets clean up the information here and add more background pics
     return (
 
-        <div class="main">
+        //Added container to main class so the image doesn't border the left edge
+        
+        <div class="main container">
 
         <div class="about-section">
 
@@ -45,7 +47,7 @@ const Aboutus = () => {
                 <button className="button">Facebook</button>
             </p>
 
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
         </div>
         </div>
         </div>
@@ -59,7 +61,7 @@ const Aboutus = () => {
         <p class="title">Front End Lead</p>
         <p>I am a Computer Science Graduate Student at SFSU.I like exploring new technologies and places. </p>
             <p>My hobbies include:</p>
-            <p>Currently taking:</p>
+            <p>Currently taking: HCI, SE</p>
         <p>sgovindu@mail.sfsu.edu</p>
             <p>
                 <button className="button">About</button>
@@ -67,7 +69,7 @@ const Aboutus = () => {
             <p>
                 <button className="button">Facebook</button>
             </p>
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
         </div>
         </div>
         </div>
@@ -80,9 +82,9 @@ const Aboutus = () => {
         <h2>Ashwini Uthirakumar</h2>
         <p class="title">Back End Lead</p>
         <p>I am a computer science grad student at SFSU. I am learning and exploring a lot of new technologies.</p>
-            <p>Currently taking:</p>
+            <p>Currently taking: CSC 848</p>
         <p>authirakumar@mail.sfsu.edu</p>
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
             <p>
                 <button className="button">About</button>
             </p>
@@ -102,7 +104,7 @@ const Aboutus = () => {
         <p>I am a Computer Science and Mathematics Student at SFSU and Banker at Bank of America Merrill Lynch.</p>
             <p>Currently taking: CSC 415, CSC 648, and CSC 675</p>
         <p>hmeier@mail.sfsu.edu</p>
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
             <p>
                 <button className="button">About</button>
             </p>
@@ -121,7 +123,7 @@ const Aboutus = () => {
         <h2>Kevin Zhou</h2>
         <p class="title">Front End Developer</p>
         <p>Hello, I am Kevin Zhou, currently a 4th year student for San Francisco and also a member of CSC 648 Team 02.</p>
-            <p>Currently taking:</p>
+            <p>Currently taking: CSC 642, CSC 648, CSC 651, and CSC 675</p>
             <p>kzhou2@mail.sfsu.edu</p>
             <p>
                 <button className="button">About</button>
@@ -129,7 +131,7 @@ const Aboutus = () => {
             <p>
                 <button className="button">Facebook</button>
             </p>
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
         </div>
         </div>
         </div>
@@ -141,7 +143,7 @@ const Aboutus = () => {
         <h2>Troy Turner</h2>
         <p class="title">Front End Developer</p>
         <p>I am in my senior year at SFSU and hoping to graduate by December.</p>
-            <p>Currently taking:</p>
+            <p>Currently taking: CSC 642, SE</p>
         <p>tturner1@mail.sfsu.edu</p>
             <p>
                 <button className="button">About</button>
@@ -149,7 +151,7 @@ const Aboutus = () => {
             <p>
                 <button className="button">Facebook</button>
             </p>
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
         </div>
         </div>
         </div>
@@ -161,7 +163,7 @@ const Aboutus = () => {
         <h2>Fiona Senchyna</h2>
         <p class="title">Back End Developer</p>
         <p>Hi, I am a computer science graduate student at SFSU. I have an undergraduate degree in biology and so am interested in bioinformatics.</p>
-            <p>Currently taking:</p>
+            <p>Currently taking:CSC 848</p>
             <p>fsenchyna@mail.sfsu.edu</p>
             <p>
                 <button className="button">About</button>
@@ -169,7 +171,7 @@ const Aboutus = () => {
             <p>
                 <button className="button">Facebook</button>
             </p>
-        <p><button class="button">Contact</button></p>
+        { /* <p><button class="button">Contact</button></p> */}
         </div>
         </div>
         </div>
