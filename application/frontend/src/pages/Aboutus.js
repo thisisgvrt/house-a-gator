@@ -65,7 +65,7 @@ const Aboutus = () => {
         <h2>Henry Meier</h2>
         <p class="title">Front End Developer</p>
         <p>I am a Computer Science and Mathematics Student at SFSU and Banker at Bank of America Merrill Lynch.</p>
-        <p>mike@example.com</p>
+        <p>hmeier@mail.sfsu.edu</p>
         <p><button class="button">Contact</button></p>
         </div>
         </div>
