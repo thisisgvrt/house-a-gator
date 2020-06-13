@@ -10,7 +10,7 @@
   *, *:before, *:after {
     box-sizing: inherit;
   }
-  
+
   .column {
     float: left;
     width: 33.333%;
@@ -26,14 +26,14 @@
     object-fit: cover;
   }
   .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px 0 rgba(23, 65, 82, 0.5);
     margin: 8px;
   }
   
   .about-section {
     padding: 30px;
     text-align: center;
-    background-color: white;
+    background-color: #ffffff;
     color: black;
   }
   
@@ -48,7 +48,7 @@
   }
   
   .title {
-    color: grey;
+    color: rgba(24, 157, 210, 0.64);
   }
   
   .button {
@@ -57,14 +57,14 @@
     display: inline-block;
     padding: 4px;
     color: white;
-    background-color: #000;
+    background-color: #3a6fcb;
     text-align: center;
     cursor: pointer;
     width: 100%;
   }
   
   .button:hover {
-    background-color: #555;
+    background-color: #052b5f;
   }
   
   @media screen and (max-width: 650px) {
