@@ -100,7 +100,9 @@ const Aboutus = () => {
         <h2>Fiona Senchyna</h2>
         <p class="title">Back End Developer</p>
         {/* <p>Hi, I am a computer science graduate student at SFSU. I have an undergraduate degree in biology and so am interested in bioinformatics.</p> */}
-        <p><button class="button">Contact</button></p>
+        <Link to="/fiona">
+        <p><button class="button">About</button></p>
+        </Link>
         </div>
         </div>
         </div>
