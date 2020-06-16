@@ -5,6 +5,7 @@ import Aboutus from "./pages/Aboutus";
 import swetha from "./pages/profile/swetha";
 import kevin from "./pages/profile/kevin";
 import ravi from "./pages/profile/ravi";
+import troy from "./pages/profile/troy";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/swetha" component={swetha} />
           <Route path="/kevin" component={kevin} />
           <Route path="/ravi" component={ravi} />
+          <Route path="/troy" component={troy} />
         </Switch>
       </Router>
     </div>
