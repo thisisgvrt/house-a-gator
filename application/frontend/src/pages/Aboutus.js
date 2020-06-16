@@ -7,14 +7,14 @@ const Aboutus = () => {
 
 
     return (
-        <div class="container-fluid" style={{ "padding-top": "3%" }}>
+        <div style={{ "padding-top": "3%" }}>
 
             <div class="jumbotron rounded-lg">
                 <h1>About Us </h1>
-                <p>we are computer science students at San Francisco State University</p>
+                <p>We are computer science students at San Francisco State University</p>
             </div>
 
-            <h2 >Our Team</h2>
+            <h1 >Our Team</h1>
 
             <div className="row">
 
@@ -24,7 +24,7 @@ const Aboutus = () => {
                         <h2 class="card-title">Raviteja Guttula</h2>
                         <h4 class="card-text">Team lead</h4>
                         <Link to="/Ravi">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -34,8 +34,8 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Swetha Govindu</h2>
                         <h4 class="card-text">Frontend lead</h4>
-                        <Link to="/Ravi">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                        <Link to="/Swetha">
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -45,8 +45,8 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Ashwini Uthirakumar</h2>
                         <h4 class="card-text">Backend lead</h4>
-                        <Link to="/Ravi">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                        <Link to="/Ashwini">
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -56,8 +56,8 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Henry Meier</h2>
                         <h4 class="card-text">Frontend developer</h4>
-                        <Link to="/Ravi">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                        <Link to="/Henry">
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ const Aboutus = () => {
                         <h2 class="card-title">Kevin Zhou</h2>
                         <h4 class="card-text">Frontend developer</h4>
                         <Link to="/Kevin">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ const Aboutus = () => {
                         <h2 class="card-title">Troy Turner</h2>
                         <h4 class="card-text">Frontend developer</h4>
                         <Link to="/Troy">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ const Aboutus = () => {
                         <h2 class="card-title">Fiona Senchyna</h2>
                         <h4 class="card-text">Backend developer</h4>
                         <Link to="/Fiona">
-                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                            <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
                 </div>

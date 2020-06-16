@@ -6,17 +6,24 @@ import swetha from "./pages/profile/swetha";
 
 function App() {
   return (
-    <div className="App">
-           <Router>
-           <Link to="/Aboutus">About Us</Link>
-           <Switch>
+    <div className="App container" style={{"padding-top":"2%"}}>
+      <Router>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-gray border rounded-lg">
+          <h3 class="my-0 mr-md-auto font-weight-bolder">Team 02</h3>
+          <nav class="my-2 my-md-0 mr-md-3">
+            <Link to="/Aboutus">
+              <button class="p-2 btn btn-link" href="#" style={{"font-size":"1.45rem"}}>About us</button>
+            </Link>
+          </nav>
+        </div>
+        <Switch>
 
-             /// if new js page added .. you need to add in route in this file(App.js) like below
+          /// if new js page added .. you need to add in route in this file(App.js) like below
           <Route path="/Aboutus" component={Aboutus} />
           <Route path="/swetha" component={swetha} />
 
-          </Switch>
-          </Router>
+        </Switch>
+      </Router>
     </div>
   );
 }
