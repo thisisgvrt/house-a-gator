@@ -44,6 +44,7 @@ h1 a{color:#131313; font-weight:bold;}
   filter: blur(0.5px);
    -webkit-transform: scale(1.8);
   transform: scale(2.8);
+  
 }
 .profile-card-3 .card-content {
   width: 100%;
@@ -120,4 +121,38 @@ h1 a{color:#131313; font-weight:bold;}
     border-radius: 50%;
     width: 190px;
     height: 190px;
+    margin-top: 2.5%;
 }
+
+p {
+    font-size: medium;
+}
+
+cite {
+    font-size: large;
+    font-weight: bold;
+}
+
+small {
+    font-weight: bold;
+}
+
+h2 {
+    font-size: xx-large;
+}
+
+.development-role {
+    font-weight: bold;
+    color: cornflowerblue;
+}
+
+.profile-name {
+    margin-top: 5%;
+    padding-top: 5%;
+}
+
+hr {
+    color: gray;
+    font-weight: bold;
+}
+

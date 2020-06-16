@@ -76,7 +76,11 @@ const Aboutus = () => {
         <h2>Kevin Zhou</h2>
         <p class="title">Front End Developer</p>
         {/* <p>Hello, I am Kevin Zhou, currently a 4th year student for San Francisco and also a member of CSC 648 Team 02.</p> */}
-        <p><button class="button">Contact</button></p>
+        
+        <Link to="/kevin">
+        <p><button class="button">About</button></p>
+        </Link>
+
         </div>
         </div>
         </div>

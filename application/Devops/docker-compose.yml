@@ -1,8 +1,0 @@
-version: "3.8"
-services:
-  webapp:
-    build:
-      context: ../Backend
-      dockerfile: Dockerfile.backend
-    ports:
-    - 5000:5000
