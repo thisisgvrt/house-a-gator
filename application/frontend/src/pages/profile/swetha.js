@@ -20,7 +20,7 @@ const swetha = () => {
                     <hr></hr>
                     
     		        <div class="">
-                    <h2>Kevin Zhou<small class="development-role">Front End Lead</small></h2>
+                    <h2>Swetha Govindu<small class="development-role">Front End Lead</small></h2>
                     <small><cite title="Source Title">San Bruno, CA, US  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
                         <div>
                             <br></br>
