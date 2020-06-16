@@ -17,30 +17,23 @@ html {
   margin-bottom: 20px;
   padding: 0 10px;
 }
-
 .h2{
   text-align:center
 }
-
 .imgs{
   width:100%;
   height: 30vw;
+  object-fit: cover;
 }
-
 .card {
-  box-shadow: 0 4px 8px 0 rgba(23, 65, 82, 0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   margin: 8px;
-
-  /* New Changes */
-  height: 800px;
-  max-width: 500px;
-  object-fit: scale-down;
 }
 
 .about-section {
   padding: 30px;
   text-align: center;
-  background-color: #ffffff;
+  background-color: white;
   color: black;
 }
 
@@ -55,12 +48,7 @@ html {
 }
 
 .title {
-  /*
-  color: rgba(24, 157, 210, 0.64);
-  */
-  /* New Changes Below */
-  font-weight: bold;
-  color: #2f6ad1;
+  color: grey;
 }
 
 .button {
@@ -69,15 +57,14 @@ html {
   display: inline-block;
   padding: 4px;
   color: white;
-  background-color: #3a6fcb;
+  background-color: #000;
   text-align: center;
   cursor: pointer;
   width: 100%;
-  
 }
 
 .button:hover {
-  background-color: #052b5f;
+  background-color: #555;
 }
 
 @media screen and (max-width: 650px) {
