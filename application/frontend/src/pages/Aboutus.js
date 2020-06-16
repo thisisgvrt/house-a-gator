@@ -18,7 +18,7 @@ const Aboutus = () => {
 
             <div className="row">
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/raviteja.jpg`)} class="card-img-top" alt="Raviteja" />
                     <div class="card-body">
                         <h2 class="card-title">Raviteja Guttula</h2>
@@ -29,7 +29,7 @@ const Aboutus = () => {
                     </div>
                 </div>
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/swetha.jpg`)} class="card-img-top" alt="Swetha" />
                     <div class="card-body">
                         <h2 class="card-title">Swetha Govindu</h2>
@@ -40,7 +40,7 @@ const Aboutus = () => {
                     </div>
                 </div>
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/ashwini.jpg`)} class="card-img-top" alt="ashwini" />
                     <div class="card-body">
                         <h2 class="card-title">Ashwini Uthirakumar</h2>
@@ -51,7 +51,7 @@ const Aboutus = () => {
                     </div>
                 </div>
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/henry.jpg`)} class="img-fluid card-img-top" alt="Henry" />
                     <div class="card-body">
                         <h2 class="card-title">Henry Meier</h2>
@@ -64,7 +64,7 @@ const Aboutus = () => {
             </div>
             <div className="row">
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/kevin.jpg`)} class="img-fluid card-img-top" alt="Kevin" />
                     <div class="card-body">
                         <h2 class="card-title">Kevin Zhou</h2>
@@ -75,7 +75,7 @@ const Aboutus = () => {
                     </div>
                 </div>
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/Troy.jpg`)} class="img-fluid card-img-top" alt="Troy" />
                     <div class="card-body">
                         <h2 class="card-title">Troy Turner</h2>
@@ -86,7 +86,7 @@ const Aboutus = () => {
                     </div>
                 </div>
 
-                <div class="card col">
+                <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/fiona.jpg`)} class="card-img-top" alt="Fiona" />
                     <div class="card-body">
                         <h2 class="card-title">Fiona Senchyna</h2>
