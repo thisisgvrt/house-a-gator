@@ -21,19 +21,21 @@ const Aboutus = () => {
                 <div class="card col">
                     <img src={require(`../images/raviteja.jpg`)} class="card-img-top" alt="Raviteja" />
                     <div class="card-body">
-                        <h5 class="card-title">Raviteja Guttula</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h2 class="card-title">Raviteja Guttula</h2>
+                        <h4 class="card-text">Team lead</h4>
+                        <Link to="/Ravi">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
+                        </Link>
                     </div>
                 </div>
 
                 <div class="card col">
                     <img src={require(`../images/swetha.jpg`)} class="card-img-top" alt="Swetha" />
                     <div class="card-body">
-                        <h5 class="card-title">Swetha Govindu</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link to="/swetha">
-                            <p><button class="button">About</button></p>
+                        <h2 class="card-title">Swetha Govindu</h2>
+                        <h4 class="card-text">Frontend lead</h4>
+                        <Link to="/Ravi">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -41,10 +43,10 @@ const Aboutus = () => {
                 <div class="card col">
                     <img src={require(`../images/ashwini.jpg`)} class="card-img-top" alt="ashwini" />
                     <div class="card-body">
-                        <h5 class="card-title">Ashwini Uthirakumar</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link to="/swetha">
-                            <p><button class="button">About</button></p>
+                        <h2 class="card-title">Ashwini Uthirakumar</h2>
+                        <h4 class="card-text">Backend lead</h4>
+                        <Link to="/Ravi">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -52,10 +54,10 @@ const Aboutus = () => {
                 <div class="card col">
                     <img src={require(`../images/henry.jpg`)} class="img-fluid card-img-top" alt="Henry" />
                     <div class="card-body">
-                        <h5 class="card-title">Henry Meier</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link to="/swetha">
-                            <p><button class="button">About</button></p>
+                        <h2 class="card-title">Henry Meier</h2>
+                        <h4 class="card-text">Frontend developer</h4>
+                        <Link to="/Ravi">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -63,12 +65,12 @@ const Aboutus = () => {
             <div className="row">
 
                 <div class="card col">
-                    <img src={require(`../images/kevin.png`)} class="img-fluid card-img-top" alt="Kevin" />
+                    <img src={require(`../images/kevin.jpg`)} class="img-fluid card-img-top" alt="Kevin" />
                     <div class="card-body">
-                        <h5 class="card-title">Henry Meier</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link to="/swetha">
-                            <p><button class="button">About</button></p>
+                        <h2 class="card-title">Kevin Zhou</h2>
+                        <h4 class="card-text">Frontend developer</h4>
+                        <Link to="/Kevin">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
                         </Link>
                     </div>
                 </div>
@@ -76,27 +78,27 @@ const Aboutus = () => {
                 <div class="card col">
                     <img src={require(`../images/Troy.jpg`)} class="img-fluid card-img-top" alt="Troy" />
                     <div class="card-body">
-                        <h5 class="card-title">Henry Meier</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link to="/swetha">
-                            <p><button class="button">About</button></p>
+                        <h2 class="card-title">Troy Turner</h2>
+                        <h4 class="card-text">Frontend developer</h4>
+                        <Link to="/Troy">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
                         </Link>
                     </div>
                 </div>
 
                 <div class="card col">
-                    <img src={require(`../images/fiona.png`)} class="card-img-top" alt="Fiona" />
+                    <img src={require(`../images/fiona.jpg`)} class="card-img-top" alt="Fiona" />
                     <div class="card-body">
-                        <h5 class="card-title">Fiona Senchyna</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <Link to="/swetha">
-                            <p><button class="button">About</button></p>
+                        <h2 class="card-title">Fiona Senchyna</h2>
+                        <h4 class="card-text">Backend developer</h4>
+                        <Link to="/Fiona">
+                            <button class="btn btn-primary mt-2" style={{"font-size":"1.5rem"}}>About</button>
                         </Link>
                     </div>
                 </div>
-            <div className="card col" style={{"visibility":"hidden"}}>
+                <div className="card col" style={{ "visibility": "hidden" }}>
 
-            </div>
+                </div>
             </div></div >
     )
 }
