@@ -73,3 +73,7 @@ html {
     display: block;
   }
 }
+
+.card-text{
+  color: gray;
+}
