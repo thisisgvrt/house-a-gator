@@ -7,6 +7,7 @@ import kevin from "./pages/profile/kevin";
 import ravi from "./pages/profile/ravi";
 import troy from "./pages/profile/troy";
 import fiona from "./pages/profile/fiona";
+import ashwini from "./pages/profile/ashwini";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/ravi" component={ravi} />
           <Route path="/troy" component={troy} />
           <Route path="/fiona" component={fiona} />
+          <Route path="/ashwini" component={ashwini} />
         </Switch>
       </Router>
     </div>
