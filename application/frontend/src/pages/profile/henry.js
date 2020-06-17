@@ -14,13 +14,13 @@ const henry = () => {
                     </div>
 
                     <div class="profile-thumb-block">
-                        <img class="profile-card-3 img" src={ require(`../../images/swetha.jpg`)} alt="" class=""/>
+                        <img class="profile-card-3 img" src={ require(`../../images/henry.jpg`)} alt="" class=""/>
                     </div>
 
                     <hr></hr>
 
                     <div class="">
-                        <h2>Swetha Govindu<small class="development-role">Front End Lead</small></h2>
+                        <h2>Henry Meier<small class="development-role">Front End Lead</small></h2>
                         <small><cite title="Source Title">San Bruno, CA, US  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
                         <div>
                             <br></br>

@@ -52,7 +52,7 @@ const Aboutus = () => {
                 </div>
 
                 <div class="card col" style={{"padding-top":"1.5%"}}>
-                    <img src={require(`../images/henry.jpg`)} class="img-fluid card-img-top" alt="Henry" />
+                    <img src={require(`../images/henry.jpg`)} class="img-fluid card-img-top" alt="henry" />
                     <div class="card-body">
                         <h2 class="card-title">Henry Meier</h2>
                         <h4 class="card-text">Frontend developer</h4>
