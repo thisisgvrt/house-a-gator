@@ -98,82 +98,8 @@ const Aboutus = () => {
                 </div>
                 <div className="card col" style={{ "visibility": "hidden" }}>
 
-<<<<<<< HEAD
-        <p><button class="button">About</button></p>
-        </Link>
-        </div>
-        </div>
-        </div>
-        
-        <div class="column">
-        <div class="card">
-        <img class="imgs" src={ require(`../images/ashwini.jpg`)} alt="ashwini" />
-        <div class="container">
-        <h2>Ashwini Uthirakumar</h2>
-        <p class="title">Back End Lead</p>
-        {/* <p>I am a computer science grad student at SFSU. I am learning and exploring a lot of new technologies.</p> */}
-        <p><button class="button">Contact</button></p>
-        </div>
-        </div>
-        </div>
-        
-        <div class="column">
-        <div class="card">
-        <img class="imgs" src={ require(`../images/henry.jpg`)} alt="Henry" />
-        <div class="container">
-        <h2>Henry Meier</h2>
-        <p class="title">Front End Developer</p>
-        {/* <p>I am a Computer Science and Mathematics Student at SFSU and Banker at Bank of America Merrill Lynch.</p> */}
-        <p><button class="button">Contact</button></p>
-        </div>
-        </div>
-        </div>
-        
-        <div class="column">
-        <div class="card">
-        <img class="imgs" src={ require(`../images/kevin.jpg`)} alt="Kevin" />
-        <div class="container">
-        <h2>Kevin Zhou</h2>
-        <p class="title">Front End Developer</p>
-        {/* <p>Hello, I am Kevin Zhou, currently a 4th year student for San Francisco and also a member of CSC 648 Team 02.</p> */}
-        <p><button class="button">Contact</button></p>
-        </div>
-        </div>
-        </div>
-        
-        <div class="column">
-        <div class="card">
-        <img class="imgs" src={ require(`../images/Troy.jpg`)} alt="Troy" />
-        <div class="container">
-        <h2>Troy Turner</h2>
-        <p class="title">Front End Developer</p>
-        {/* <p>I am in my senior year at SFSU and hoping to graduate by December.</p> */}
-        <p><button class="button">Contact</button></p>
-        </div>
-        </div>
-        </div>
-        
-        <div class="column">
-        <div class="card">
-        <img class="imgs" src= { require(`../images/fiona.jpg`)} alt="Fiona"/>
-        <div class="container">
-        <h2>Fiona Senchyna</h2>
-        <p class="title">Back End Developer</p>
-        {/* <p>Hi, I am a computer science graduate student at SFSU. I have an undergraduate degree in biology and so am interested in bioinformatics.</p> */}
-        <Link to="/fiona">
-        <p><button class="button">About</button></p>
-        </Link>
-        </div>
-        </div>
-        </div>
-        </div></div>
-        )
-    }
-    export default Aboutus;
-=======
                 </div>
             </div></div >
     )
 }
 export default Aboutus;
->>>>>>> 46f65146e287ecb84ba449584647a9ac951626b6

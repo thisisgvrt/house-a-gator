@@ -3,10 +3,10 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Aboutus from "./pages/Aboutus";
 import swetha from "./pages/profile/swetha";
-import fiona from "./pages/profile/fiona";
 import kevin from "./pages/profile/kevin";
 import ravi from "./pages/profile/ravi";
 import troy from "./pages/profile/troy";
+import fiona from "./pages/profile/fiona";
 
 function App() {
   return (
