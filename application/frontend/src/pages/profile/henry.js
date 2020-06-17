@@ -27,10 +27,12 @@ const henry = () => {
                             <p class="bio">I am a Computer Science and Mathematics Student at SFSU and Banker at Bank of America Merrill Lynch.</p>
 
                             <p class="">My hobbies include running, weightlifting, and skiing.</p>
+
+                            <p className="">Classes taking this semester: CSC 675, CSC 648, and CSC 675.</p>
                         </div>
                         <div>
-                            <a href="https://github.com/swetha867" target="_tab"><i class="fab fa-github-square"></i></a>
-                            <a href="https://www.linkedin.com/in/swetha-govindu-8634437a/" target="_tab"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/hcm444" target="_tab"><i class="fab fa-github-square"></i></a>
+                            <a href="https://www.linkedin.com/in/henrymeier26/" target="_tab"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
