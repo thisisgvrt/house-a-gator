@@ -28,6 +28,8 @@ function App() {
           <Route path="/ravi" component={ravi} />
           <Route path="/troy" component={troy} />
           <Route path="/fiona" component={fiona} />
+          <Route path="/henry" component={henry} />
+
         </Switch>
       </Router>
     </div>
