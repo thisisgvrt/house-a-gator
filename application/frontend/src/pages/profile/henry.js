@@ -24,9 +24,9 @@ const henry = () => {
                         <small><cite title="Source Title">San Bruno, CA, US  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
                         <div>
                             <br></br>
-                            <p class="bio">I am a Computer Science Graduate Student at SFSU.I like exploring new technologies and places.</p>
+                            <p class="bio">I am a Computer Science and Mathematics Student at SFSU and Banker at Bank of America Merrill Lynch.</p>
 
-                            <p class="">I love watching sports,cooking and hiking</p>
+                            <p class="">My hobbies include running, weightlifting, and skiing.</p>
                         </div>
                         <div>
                             <a href="https://github.com/swetha867" target="_tab"><i class="fab fa-github-square"></i></a>
