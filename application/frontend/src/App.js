@@ -9,6 +9,8 @@ import troy from "./pages/profile/troy";
 import fiona from "./pages/profile/fiona";
 import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
+import Login from "./pages/Login";
+
 
 
 function App() {
@@ -20,6 +22,9 @@ function App() {
           <nav class="my-2 my-md-0 mr-md-3">
             <Link to="/About-us">
               <button class="p-2 btn btn-link" href="#" style={{ "font-size": "1.45rem" }}>About us</button>
+            </Link>
+            <Link to="/Login">
+              <button class="p-2 btn btn-link" href="#" style={{ "font-size": "1.45rem" }}>Login</button>
             </Link>
           </nav>
         </div>
@@ -33,6 +38,8 @@ function App() {
           <Route path="/fiona" component={fiona} />
           <Route path="/ashwini" component={ashwini} />
           <Route path="/henry" component={henry} />
+          <Route path="/Login" component={Login} />
+
 
         </Switch>
       </Router>
