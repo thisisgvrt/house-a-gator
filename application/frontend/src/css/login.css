@@ -1,0 +1,19 @@
+.container-fluid {
+   text-align: left;
+}
+
+.form-group{
+    display:flex;
+    width: 87rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-group .form-control{
+  width: 50rem;
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  align-items: left;
+}
