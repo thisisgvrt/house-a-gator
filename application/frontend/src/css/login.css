@@ -1,19 +1,36 @@
 .container-fluid {
    text-align: left;
+   /* border: 1px solid red; */
 }
 
 .form-group{
-    display:flex;
     width: 87rem;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
-    flex-direction: column;
+    /*flex-direction: column;*/
+    /* border: 1px solid green; */
+    text-align: left;
 }
 
 .form-group .form-control{
   width: 50rem;
   display: flex;
   justify-content: center;
-  text-align: left;
-  align-items: left;
+  text-align: center;
+  align-items: center;
+  /* border: 1px solid yellow; */
+}
+
+#passwordHelp{
+    align-items: right;
+    /* border: 1px solid blue; */
+}
+
+.jumbotron{
+    background-image: url(https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+
+}
+
+.jumbotron h1{
+    color:yellow;
 }
