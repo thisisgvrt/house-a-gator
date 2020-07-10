@@ -1,8 +1,11 @@
 from faker import Faker
+from random import choice
 import click
 
 from app.database import db
 from app.api.about.model import User
+from app.api.listing.model import Listing
+from app.api.media.model import Media
 
 
 def populate_team():
@@ -29,6 +32,40 @@ def populate_db(num_users):
         )
     for user in users:
         db.session.add(user)
+    db.session.commit()
+
+@click.option('--num_listings', default=5, help='Number of users.')
+def populate_listings(num_listings):
+    """Populates the database with seed data."""
+    fake = Faker()
+    listings = []
+    for _ in range(num_listings):
+        listings.append(
+            Listing(
+                title=fake.name(),
+                street_address=fake.street_address(),
+                city=fake.city(),
+                state=fake.state(),
+                zip_code=fake.postcode(),
+                country=fake.country(),
+                listing_price="0.0",
+                media=[]
+            )
+        )
+    for listing in listings:
+        db.session.add(listing)
+    db.session.commit()
+    media = []
+    for _ in range(num_listings):
+        random_listing = choice(listings)
+        media.append(
+            Media(
+                listing_id = random_listing.id,
+                media_path = fake.street_address()
+            )
+        )
+    for single_media in media:
+        db.session.add(single_media)
     db.session.commit()
 
 def create_db():
