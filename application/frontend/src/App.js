@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Aboutus from "./pages/Aboutus";
 import login from "./pages/login";
+import listing from "./pages/listing";
 import swetha from "./pages/profile/swetha";
 import kevin from "./pages/profile/kevin";
 import ravi from "./pages/profile/ravi";
@@ -31,6 +32,7 @@ function App() {
           /// if new js page added .. you need to add in route in this file(App.js) like below
           <Route path="/About-us" component={Aboutus} />
           <Route path="/login" component={login}/>
+          <Route path="/listing" component={listing}/>
           <Route path="/swetha" component={swetha} />
           <Route path="/kevin" component={kevin} />
           <Route path="/ravi" component={ravi} />
