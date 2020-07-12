@@ -1,16 +1,18 @@
-body{
+/* body{
     font-family: 'Open Sans', sans-serif;
-}
-*:hover{
+} */
+/* *:hover{
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
-}
+} */
 
-h1{float:left; width:100%; color:#232323; margin-bottom:30px; font-size: 14px;}
+/* h1{float:left; width:100%; color:#232323; margin-bottom:30px; font-size: 14px;}
 h1 span{font-family: 'Libre Baskerville', serif; display:block; font-size:45px; text-transform:none; margin-bottom:20px; margin-top:30px; font-weight:700}
-h1 a{color:#131313; font-weight:bold;}
+h1 a{color:#131313; font-weight:bold;} */
 
-
+.container {
+  text-align: center;
+}
 /*Profile Card 3*/
 .profile-card-3 {
   /* font-family: 'Open Sans', Arial, sans-serif;
@@ -124,35 +126,35 @@ h1 a{color:#131313; font-weight:bold;}
     margin-top: 2.5%;
 }
 
-p {
+/* p {
     font-size: medium;
-}
+} */
 
 cite {
     font-size: large;
     font-weight: bold;
 }
 
-small {
+/* small {
     font-weight: bold;
-}
+} */
 
-h2 {
+/* h2 {
     font-size: xx-large;
-}
+} */
 
 .development-role {
     font-weight: bold;
     color: cornflowerblue;
 }
 
-.profile-name {
+/* .profile-name {
     margin-top: 5%;
     padding-top: 5%;
-}
-
+} */
+/* 
 hr {
     color: gray;
     font-weight: bold;
-}
+} */
 
