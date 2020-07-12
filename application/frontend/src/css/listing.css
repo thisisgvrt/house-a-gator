@@ -1,0 +1,12 @@
+.jumbotron{
+    background-image: url(https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+
+}
+
+.container-fluid .input-group{
+    width: 50rem;
+}
+
+.container-fluid .jumbotron .title{
+    text-align: center;
+}
