@@ -4,8 +4,7 @@ import click
 
 from app.database import db
 from app.api.about.model import User
-from app.api.listing.model import Listing
-from app.api.media.model import Media
+from app.api.listing.model import Listing, Media
 
 
 def populate_team():

@@ -1,8 +1,9 @@
 from flask import Blueprint, request
 from flask_marshmallow import Marshmallow
 
-from app.api.listing.model import Listing
-from app.api.media.model import Media
+from sqlalchemy import or_
+
+from app.api.listing.model import Listing, Media
 
 listing_page = Blueprint('listing_page', __name__)
 
@@ -22,13 +23,13 @@ class ListingSchema(ma.SQLAlchemySchema):
 listing_schema = ListingSchema()
 listings_schema = ListingSchema(many=True)
 
-@listing_page.route('/', methods=['POST'])
-def save_new_listing_route():
-    pass
-
 
 @listing_page.route('/')
 def get_listings_route():
     query_string = request.args.get('query','')
-    filtered_result_set = Listing.query.filter(Listing.title.ilike(f'%{query_string}%')).all()
+    query_filter = Listing.title.ilike(f'%{query_string}%')
+    house_type = request.args.get('house_type','')
+    house_type_filter = Listing.house_type.match(house_type)
+    filters = (or_(query_filter, house_type_filter))
+    filtered_result_set = Listing.query.filter().all()
     return listings_schema.jsonify(filtered_result_set)
