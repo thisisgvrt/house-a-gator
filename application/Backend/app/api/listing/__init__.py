@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_marshmallow import Marshmallow
 
-from sqlalchemy import or_
+from sqlalchemy import and_
 
 from app.api.listing.model import Listing, Media, ListingStatus, ListingType
 
@@ -42,8 +42,8 @@ def get_listings_route():
     query_filter = Listing.title.ilike(f'%{query_string}%')
     listing_type = request.args.get('listing_type','Houses')
     listing_status = request.args.get('listing_status','Verified')
-    listing_type_filter = Listing.listing_type.match(listing_type)
-    listing_status_filter = Listing.listing_type.match(listing_status)
-    filters = (or_(query_filter, listing_type_filter, listing_status_filter))
-    filtered_result_set = Listing.query.filter().all()
+    listing_type_filter = ListingType.type_string.like(listing_type)
+    listing_status_filter = ListingStatus.status_string.like(listing_status)
+    filters = (and_(query_filter, listing_type_filter, listing_status_filter))
+    filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
     return listings_schema.jsonify(filtered_result_set)
