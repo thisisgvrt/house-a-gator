@@ -54,7 +54,7 @@ const App = (isLoggedIn, dispatch) => {
             </li>
             <li class="ml-sm-4 mt-sm-2 nav-item">
               <form class="form-inline nav-link-line-height">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
                 <select class="custom-select mr-sm-2" value={listingType} onChange={event => setListingType(event.target.value)} >
                   <option selected value="">House Type</option>
                   <option value="Houses">Houses</option>
