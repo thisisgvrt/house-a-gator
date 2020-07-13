@@ -1,5 +1,12 @@
 version: "3.8"
 services:
+  database:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: house-a-gator
   webserver:
     build:
       context: ../frontend
