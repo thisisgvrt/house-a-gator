@@ -11,7 +11,7 @@ class ListingStatus(db.Model):
 class ListingType(db.Model):
     __tablename__ = 'listing_type'
     id = db.Column(db.Integer, primary_key=True)
-    type_string = db.Column(db.String(10), nullable=False)
+    type_string = db.Column(db.String(20), nullable=False)
     listing = db.relationship('Listing', back_populates="ltype")
     def __repr__(self):
         return '<ListingType #%s:%r>' % (self.id, self.type_string)
@@ -35,7 +35,7 @@ class Listing(CRUDMixin, db.Model):
     city = db.Column(db.String(40), nullable=False)
     state = db.Column(db.String(20), nullable=False)
     zip_code = db.Column(db.String(20), nullable=False)
-    country = db.Column(db.String(20), nullable=False)
+    country = db.Column(db.String(30), nullable=False)
     listing_price = db.Column(db.Integer, nullable=False)
     
     media = db.relationship('Media', back_populates="listing")
