@@ -30,7 +30,7 @@ class ListingSchema(ma.SQLAlchemySchema):
     lstatus = ma.Nested(ListingStatusSchema)
     class Meta:
         model = Listing
-        fields = ('title', 'description', 'listing_price', 'media', 'ltype', 'lstatus')
+        fields = ('title', 'description', 'listing_price', 'media', 'ltype', 'lstatus', 'num_baths', 'num_beds')
 
 listing_schema = ListingSchema()
 listings_schema = ListingSchema(many=True)
