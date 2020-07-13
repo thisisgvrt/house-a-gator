@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/login.css"
-import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
