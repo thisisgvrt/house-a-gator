@@ -6,12 +6,15 @@ class ListingStatus(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status_string = db.Column(db.String(10), nullable=False)
     listing = db.relationship('Listing', back_populates="lstatus")
-
+    def __repr__(self):
+        return '<ListingStatus #%s:%r>' % (self.id, self.status_string)
 class ListingType(db.Model):
     __tablename__ = 'listing_type'
     id = db.Column(db.Integer, primary_key=True)
     type_string = db.Column(db.String(10), nullable=False)
     listing = db.relationship('Listing', back_populates="ltype")
+    def __repr__(self):
+        return '<ListingType #%s:%r>' % (self.id, self.type_string)
 
 class Media(db.Model):
     __tablename__ = 'listing_media'
