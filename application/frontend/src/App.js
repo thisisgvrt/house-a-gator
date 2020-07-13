@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
-
-//import './App.css';
 import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/House-a-Gator.css';
+
 import Aboutus from "./pages/Aboutus";
 import login from "./pages/login";
 import listingPage from "./pages/listing";
@@ -16,91 +17,86 @@ import fiona from "./pages/profile/fiona";
 import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
 
+import Homepage from "./pages/HomePage";
 
-const App = (isLoggedIn,dispatch) => {
+const App = (isLoggedIn, dispatch) => {
 
-  let listing = [];
-  const [listingLists, setlistingLists] = React.useState([]);
-  const listListing = () => {  
-    axios.get("/api/listing/getAll")
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const [listingType, setListingType] = React.useState("");
+
+  const [listings, setListings] = React.useState([]);
+
+  const fetchListings = () => {
+    axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
       .then((res) => {
-        for (let i = 0; i < res.data.listing.length; i++) {
-          listing.push(res.data.listing[i]);
-        }
-        setlistingLists(listing);
+        setListings(res.data);
       })
       .catch(e => "error loading the list listing" + e)
   }
-  React.useEffect(() => {
-    listListing();
+
+  useEffect(async () => {
+    fetchListings();
   }, []);
 
   return (
     <Router>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-  
-    </button>
-    <a class="navbar-brand" href="#">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)} class="card-img-top" alt="Raviteja" />
-  </a>
-  
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" href="/" style={{ "font-size": "1.45rem" }}>House-a-Gator <span class="sr-only">(current)</span></a>
-        </li>
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{"height": "31.79px","left": "388px"}}></input>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-        <li class="nav-item">
-          <a class="nav-link" style={{ "font-size": "1.45rem" }} href="/listingPage">Post</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style={{ "font-size": "1.45rem" }} href="/About-us">Aboutus</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style={{ "font-size": "1.45rem" ,"  align-items": "right"}} href="/Login">Signin</a>
-        </li>
-        
-      </ul>
-     
-    </div>
-  </nav>
-      {/* // <div className="App container" style={{ "padding-top": "2%" }}>
-    //   <Router>
-    //     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-gray border rounded-lg">
-    //       <h3 class="my-0 mr-md-auto font-weight-bolder">Team 02</h3>
-    //       <nav class="my-2 my-md-0 mr-md-3">
-    //       <Link to="/login">
-    //           <button class="p-2 btn btn-link" href="#" style={{ "font-size": "1.45rem" }}>Log In</button>
-    //         </Link>
-    //         <Link to="/About-us">
-    //           <button class="p-2 btn btn-link" href="#" style={{ "font-size": "1.45rem" }}>About us</button>
-    //         </Link>
-    //         <Link to="/navbar">
-    //           <button class="p-2 btn btn-link" href="#" style={{ "font-size": "1.45rem" }}>Navbar</button>
-    //         </Link>
-    //       <Link to="/Login">
-    //           <button class="p-2 btn btn-link" href="#" style={{ "font-size": "1.45rem" }}>Login</button>
-    //         </Link> 
-    //       </nav>
-    //     </div>*/}
-        <Switch>
-          <Route path="/About-us" component={Aboutus} />
-          <Route path="/login" component={login}/>
-          <Route path="/listingPage" component={listingPage}/>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)} alt="Logo" />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link logo" href="/">House-a-Gator</a>
+            </li>
+            <li class="ml-sm-4 mt-sm-2 nav-item">
+              <form class="form-inline nav-link-line-height">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
+                <select class="custom-select mr-sm-2" value={listingType} onChange={event => setListingType(event.target.value)} >
+                  <option selected value="">House Type</option>
+                  <option value="Houses">Houses</option>
+                  <option value="Condos">Condos</option>
+                  <option value="Apartments">Apartments</option>
+                  <option value="Town Houses">Town Houses</option>
+                </select>
+                <button class="btn btn-outline-success" type="button" onClick={fetchListings} >Search</button>
+              </form>
+            </li>
 
-          <Route path="/swetha" component={swetha} />
-          <Route path="/kevin" component={kevin} />
-          <Route path="/ravi" component={ravi} />
-          <Route path="/troy" component={troy} />
-          <Route path="/fiona" component={fiona} />
-          <Route path="/ashwini" component={ashwini} />
-          <Route path="/henry" component={henry} />
-        </Switch>
-      </Router>
+            <li class="ml-sm-5 nav-item">
+              <NavLink exact className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/">Listings</NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">Sign-in</NavLink>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+      <Switch>
+        <Route path="/About-us" component={Aboutus} />
+        <Route path="/login" component={login} />
+        <Route path="/listingPage" component={listingPage} />
+        <Route path="/" render={(props) => <Homepage listings={listings} />} />
+        <Route path="/swetha" component={swetha} />
+        <Route path="/kevin" component={kevin} />
+        <Route path="/ravi" component={ravi} />
+        <Route path="/troy" component={troy} />
+        <Route path="/fiona" component={fiona} />
+        <Route path="/ashwini" component={ashwini} />
+        <Route path="/henry" component={henry} />
+      </Switch>
+    </Router>
     // </div>
   );
 }
