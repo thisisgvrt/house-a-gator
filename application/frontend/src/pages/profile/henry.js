@@ -21,7 +21,7 @@ const henry = () => {
 
                     <div class="">
                         <h2>Henry Meier<small class="development-role">Front End Lead</small></h2>
-                        <small><cite title="Source Title">San Bruno, CA, US  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+                        <small><cite title="Source Title">Oakland, CA, US  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
                         <div>
                             <br></br>
                             <p class="bio">I am a Computer Science and Mathematics Student at SFSU and Banker at Bank of America Merrill Lynch.</p>

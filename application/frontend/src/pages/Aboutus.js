@@ -1,13 +1,8 @@
 import React from "react";
-import "../css/Aboutus.css";
 import { Link } from "react-router-dom";
-
-
 const Aboutus = () => {
-
-
     return (
-        <div style={{ "padding-top": "3%" }}>
+        <div style={{ "padding-top": "3%" ,"text-align":"center"}}>
 
             <div class="jumbotron rounded-lg">
                 <h1>About Us </h1>
