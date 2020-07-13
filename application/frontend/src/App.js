@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
@@ -21,24 +21,23 @@ import Homepage from "./pages/HomePage";
 
 const App = (isLoggedIn, dispatch) => {
 
-  const [searchTerm, setSearchTerm] = React.useState([]);
+  const [searchTerm, setSearchTerm] = React.useState("");
 
-  let listing = [];
-  const [listingLists, setlistingLists] = React.useState([]);
+  const [listingType, setListingType] = React.useState("");
 
-  const listListing = () => {
-    axios.get(`http://127.0.0.1:5000/api/listings?query=${searchTerm}`)
+  const [listings, setListings] = React.useState([]);
+
+  const fetchListings = () => {
+    axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
       .then((res) => {
-        for (let i = 0; i < res.data.listing.length; i++) {
-          listing.push(res.data.listing[i]);
-        }
-        setlistingLists(listing);
+        setListings(res.data);
       })
       .catch(e => "error loading the list listing" + e)
   }
-  // React.useEffect(() => {
-  //   listListing();
-  // }, []);
+
+  useEffect(async () => {
+    fetchListings();
+  }, []);
 
   return (
     <Router>
@@ -46,7 +45,7 @@ const App = (isLoggedIn, dispatch) => {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)}  alt="Logo" />
+        <a class="navbar-brand" href="/">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)} alt="Logo" />
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto">
@@ -56,7 +55,14 @@ const App = (isLoggedIn, dispatch) => {
             <li class="ml-sm-4 mt-sm-2 nav-item">
               <form class="form-inline nav-link-line-height">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
-                <button class="btn btn-outline-success" type="submit" onClick={listListing()} >Search</button>
+                <select class="custom-select mr-sm-2" value={listingType} onChange={event => setListingType(event.target.value)} >
+                  <option selected value="">House Type</option>
+                  <option value="Houses">Houses</option>
+                  <option value="Condos">Condos</option>
+                  <option value="Apartments">Apartments</option>
+                  <option value="Town Houses">Town Houses</option>
+                </select>
+                <button class="btn btn-outline-success" type="button" onClick={fetchListings} >Search</button>
               </form>
             </li>
 
@@ -81,7 +87,7 @@ const App = (isLoggedIn, dispatch) => {
         <Route path="/About-us" component={Aboutus} />
         <Route path="/login" component={login} />
         <Route path="/listingPage" component={listingPage} />
-        <Route path="/" component={Homepage} />
+        <Route path="/" render={(props) => <Homepage listings={listings} />} />
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
