@@ -1,8 +1,10 @@
 from flask import Flask
+from flask_cors import CORS
 from app.database import db
 from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
+CORS(app)
 ma = Marshmallow(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db.init_app(app)
