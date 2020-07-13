@@ -67,6 +67,7 @@ def populate_listings(num_listings):
         "Close to all the essential services",
         "Good amenities and lake view.",
     ]
+    verified_status_id = list(filter(lambda ltype: ltype.status_string == "Verified", listing_statuses))[0].id
     for _ in range(num_listings):
         listings.append(
             Listing(
@@ -80,7 +81,7 @@ def populate_listings(num_listings):
                 zip_code=fake.zipcode(),
                 country="United States of America",
                 listing_price=randint(10, 50) * choice([50, 100, 200, 300]),
-                listing_status=(choice(listing_statuses)).id,
+                listing_status=verified_status_id,
                 listing_type=(choice(listing_types)).id,
                 listing_views=0,
                 is_furnished=choice([False, True]),
