@@ -40,10 +40,14 @@ listings_schema = ListingSchema(many=True)
 def get_listings_route():
     query_string = request.args.get('query','')
     query_filter = Listing.title.ilike(f'%{query_string}%')
-    listing_type = request.args.get('listing_type','Houses')
+    listing_type = request.args.get('listing_type',None)
     listing_status = request.args.get('listing_status','Verified')
-    listing_type_filter = ListingType.type_string.like(listing_type)
     listing_status_filter = ListingStatus.status_string.like(listing_status)
-    filters = (and_(query_filter, listing_type_filter, listing_status_filter))
-    filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
+    if listing_type is None:
+        filters = (and_(query_filter, listing_status_filter))
+        filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
+    else:
+        listing_type_filter = ListingType.type_string.like(listing_type)
+        filters = (and_(query_filter, listing_type_filter, listing_status_filter))
+        filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
     return listings_schema.jsonify(filtered_result_set)
