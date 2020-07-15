@@ -8,10 +8,10 @@ const HomePage = ({ listings }) => {
         console.log(media);
         return (
             <div class="card col-sm-1 col-md-4 col-lg-3" style={{ "padding-top": "1.5%" }}>
-                <img src={(`/media?file_name=${media_img_source}`)} class="img-fluid card-img-top" alt="Raviteja" />
+                <img src={(`/media?file_name=${media_img_source}`)} class="img-fluid card-img-top" style={{height: "15vw", "object-fit": "cover"}} alt="dummy" />
                 <div class="card-body">
                     <h4>{title}</h4>
-                    <p> {description} </p>
+                    <p className="text-truncate"> {description} </p>
                     <p><strong> ${listing_price} </strong></p>
                     <span> <strong>Beds: </strong>{num_beds} <strong className="">Baths: </strong>{num_baths} </span>
                 </div>
