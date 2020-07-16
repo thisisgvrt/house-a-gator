@@ -29,7 +29,7 @@ def populate_db(num_users):
     db.session.commit()
 
 
-@click.option("--num_listings", default=14, help="Number of listings.")
+@click.option("--num_listings", default=16, help="Number of listings.")
 def populate_listings(num_listings):
     """Populates the database with seed data."""
     fake = Faker()
@@ -50,29 +50,112 @@ def populate_listings(num_listings):
         db.session.add(listing_status)
     db.session.commit()
 
+    listing_info = [
+        {
+            "title": "Isolated House",
+            "description": "House with a nice garden around",
+            "media_obj": {"title": "View from the ranch", "image_name": "Alone-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Colorful apartment",
+            "description": "Apartments with balcony and blue borders",
+            "media_obj": {"title": "View from across the street", "image_name": "Apartments.jpg"},
+            "house_type": 3
+        },
+        {
+            "title": "Amazing palace",
+            "description": "Fully furnished palace",
+            "media_obj": {"title": "View from the garden", "image_name": "Big-building.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Beach side house",
+            "description": "A safe home with amazing view of a beach",
+            "media_obj": {"title": "View across the street", "image_name": "Blue-brown.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Victorian house",
+            "description": "Victorian houses with funky colors",
+            "media_obj": {"title": "View across the street", "image_name": "Colored-apartments.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Serene country-side cottage",
+            "description": "Cozy cottage on a hill side",
+            "media_obj": {"title": "View with chimney", "image_name": "Cottage.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "House surrounded by plants",
+            "description": "House tucked inside a forest",
+            "media_obj": {"title": "View with pool", "image_name": "Forest-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "House with big glass windows",
+            "description": "Futuristic glass walled house",
+            "media_obj": {"title": "View from garden with snow", "image_name": "Glass-building.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "House on a lake between mountains",
+            "description": "Floating house on the lake, with view of mountain",
+            "media_obj": {"title": "Good view", "image_name": "good-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "House with a nice pool",
+            "description": "House with a nice garden and a pool",
+            "media_obj": {"title": "View with the pool", "image_name": "House-with-pool.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "House with a hill-side view",
+            "description": "House on a hill side with a nice pool",
+            "media_obj": {"title": "View with mountains", "image_name": "Infinity-pool.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "House on a lake",
+            "description": "Lake house, ideal for horror movies",
+            "media_obj": {"title": "View across the lake", "image_name": "Lake-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Simple house",
+            "description": "Simple house, ready to move in",
+            "media_obj": {"title": "House with pumpkins", "image_name": "Single-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Cozy house beside a lake",
+            "description": "Cozy house in a cold climate beside the lake",
+            "media_obj": {"title": "House across the lake", "image_name": "Snow-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Moroccan house",
+            "description": "Clean and simple architecture",
+            "media_obj": {"title": "House with small windows", "image_name": "White-house.jpg"},
+            "house_type": 1
+        },
+        {
+            "title": "Condo on the corner",
+            "description": "On the corner, closer to everything",
+            "media_obj": {"title": "Condo", "image_name": "condo.jpg"},
+            "house_type": 2
+        }
+    ]
+
     listings = []
-    titles_list = [
-        "Apartment with a beach view",
-        "Vacation home",
-        "Pool house",
-        "Glass building",
-        "Blue lake",
-        "Snow house",
-        "Colored aparments",
-        "Amazing deal for an apartment",
-    ]
-    description_list = [
-        "Amazing view with good sceneries around",
-        "A refreshing view to wake up to",
-        "Close to all the essential services",
-        "Good amenities and lake view.",
-    ]
     verified_status_id = list(filter(lambda ltype: ltype.status_string == "Verified", listing_statuses))[0].id
-    for _ in range(num_listings):
+    for idx in range(num_listings):
         listings.append(
             Listing(
-                title=choice(titles_list),
-                description=choice(description_list),
+                title=listing_info[idx]["title"],
+                description=listing_info[idx]["description"],
                 building_number=choice(["#", "No.", ""]) + str(randint(0, 100)),
                 apartment=choice(["Sofi", "Aragon", "Northpoint", "Southpoint", ""]),
                 street_name=fake.street_name(),
@@ -82,7 +165,7 @@ def populate_listings(num_listings):
                 country="United States of America",
                 listing_price=randint(10, 50) * choice([50, 100, 200, 300]),
                 listing_status=verified_status_id,
-                listing_type=(choice(listing_types)).id,
+                listing_type=listing_info[idx]["house_type"],
                 listing_views=0,
                 is_furnished=choice([False, True]),
                 square_footage=choice([10, 30, 40]) * choice([50, 75, 100]),
@@ -99,26 +182,11 @@ def populate_listings(num_listings):
     db.session.commit()
 
     media_list = []
-    media_list_obj = [
-        {"title": "View from the ranch", "image_name": "Alone-house.jpg"},
-        {"title": "View from across the street", "image_name": "Apartments.jpg"},
-        {"title": "View from the garden", "image_name": "Big-building.jpg"},
-        {"title": "View across the street", "image_name": "Colored-apartments.jpg",},
-        {"title": "View with chimney", "image_name": "Cottage.jpg"},
-        {"title": "View with pool", "image_name": "Forest-house.jpg"},
-        {"title": "View from garden with snow", "image_name": "Glass-building.jpg"},
-        {"title": "View with the pool", "image_name": "House-with-pool.jpg"},
-        {"title": "View with mountains", "image_name": "Infinity-pool.jpg"},
-        {"title": "View across the lake", "image_name": "Lake-house.jpg"},
-        {"title": "House with pumpkins", "image_name": "Single-house.jpg"},
-        {"title": "House across the lake", "image_name": "Snow-house.jpg"},
-        {"title": "House with small windows", "image_name": "White-house.jpg"},
-        {"title": "Good view", "image_name": "good-house.jpg"},
-    ]
-    for idx, media_obj in enumerate(media_list_obj):
-        random_listing = listings[idx]
+    
+    for idx in range(num_listings):
+        media_obj = listing_info[idx]["media_obj"]
         media = Media(
-            listing_id=random_listing.id,
+            listing_id=(idx+1),
             media_title=media_obj["title"],
             media_path=media_obj["image_name"],
         )
