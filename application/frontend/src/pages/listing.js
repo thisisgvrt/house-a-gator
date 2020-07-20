@@ -2,12 +2,13 @@
 import React from 'react';
 import "../css/listing.css"
 
+
 function listing() {
-    return(
-        <div class="container-fluid" style={{"padding":"3%"}}>
+    return (
+        <div class="container-fluid" style={{ "padding": "3%" }}>
             <div class="jumbotron">
-              <h1 class="title">New Listing</h1>
-              <p>__</p>
+                <h1 class="title">New Listing</h1>
+                <p>__</p>
             </div>
 
             <label for="">Title</label>
@@ -53,6 +54,18 @@ function listing() {
                 </div>
             </div>
 
+            <div class="dropdown">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Category
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Apartment</a>
+    <a class="dropdown-item" href="#">Studio</a>
+    <a class="dropdown-item" href="#">Room</a>
+    <a class="dropdown-item" href="#">House</a>
+  </div>
+</div>
+
             <label for="">Images</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Choose file"></input>
@@ -60,6 +73,14 @@ function listing() {
                     <button class="btn btn-outline-primary" type="button" id="button-addon">Browse</button>
                 </div>
             </div>
+            
+                <ul class="list-inline">
+                <div class="container d-flex justify-content-between">
+                    <li class="list-inline-item"><button class="btn btn-danger" type="button">Reset Form</button></li>
+                    <li class="list-inline-item"><button class="btn btn-primary" type="button">Submit</button></li>
+                </div>
+                </ul>
+            
 
         </div>
     );
