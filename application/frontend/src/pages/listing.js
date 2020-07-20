@@ -1,7 +1,7 @@
 
 import React from 'react';
 import "../css/listing.css"
-import 'bootstrap/dist/css/bootstrap.css';
+
 
 function listing() {
     return (
