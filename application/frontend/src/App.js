@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/House-a-Gator.css';
 
 import Aboutus from "./pages/Aboutus";
-import login from "./pages/login";
+import login from "./pages/Login";
 import listingPage from "./pages/listing";
 import swetha from "./pages/profile/swetha";
 import kevin from "./pages/profile/kevin";
@@ -17,15 +17,20 @@ import fiona from "./pages/profile/fiona";
 import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
 import Homepage from "./pages/HomePage";
-
-const App = (isLoggedIn, dispatch) => {
+import {
+  
+  setIsLoggedIn,
+} from "./redux/actions/userActions";
+const App = ({isLoggedIn, dispatch}) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
 
   const [listingType, setListingType] = React.useState("");
 
   const [listings, setListings] = React.useState([]);
-  
+  const handleLogout = () => {
+    dispatch(setIsLoggedIn(false));
+  }
   const fetchListings = () => {
     axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
       .then((res) => {
@@ -68,19 +73,31 @@ const App = (isLoggedIn, dispatch) => {
               </form>
             </li>
 
-            <li class="ml-sm-5 nav-item">
+            {/* <li class="ml-sm-5 nav-item">
               <NavLink exact className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/">Listings</NavLink>
-            </li>
+            </li> */}
+           
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
             </li>
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
             </li>
+            {!isLoggedIn && (
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">Sign-in</NavLink>
-            </li>
-
+            </li>)}
+             {!isLoggedIn && (
+             <li class="nav-item">
+             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/">Sign-up</NavLink>
+           </li>
+            )}
+            {isLoggedIn && (
+                 <li class="nav-item">
+                   
+                 <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/" onClick={handleLogout}>Logout</NavLink>
+               </li>
+            )}
           </ul>
 
         </div>

@@ -60,7 +60,7 @@ import {
                       
                 </div>
                 <ul class="list-inline">
-                <li class="list-inline-item"><button type="submit" class="btn btn-info">Sign In</button></li>
+                <li class="list-inline-item"><button type="submit" class="btn btn-info" onClick={handleLogIn} >Sign In</button></li>
                 <li class="list-inline-item"><p>New User?</p></li>
                 <li class="list-inline-item"><a class="nav-link" href="#">Signup here</a></li>
                 </ul>
