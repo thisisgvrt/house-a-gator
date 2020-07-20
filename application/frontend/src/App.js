@@ -16,7 +16,6 @@ import troy from "./pages/profile/troy";
 import fiona from "./pages/profile/fiona";
 import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
-
 import Homepage from "./pages/HomePage";
 
 const App = (isLoggedIn, dispatch) => {
@@ -26,7 +25,7 @@ const App = (isLoggedIn, dispatch) => {
   const [listingType, setListingType] = React.useState("");
 
   const [listings, setListings] = React.useState([]);
-
+  
   const fetchListings = () => {
     axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
       .then((res) => {
@@ -40,7 +39,10 @@ const App = (isLoggedIn, dispatch) => {
   }, []);
 
   return (
+ 
+
     <Router>
+         <h6 class="text-center">   SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only</h6>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -87,6 +89,8 @@ const App = (isLoggedIn, dispatch) => {
         <Route path="/About-us" component={Aboutus} />
         <Route path="/login" component={login} />
         <Route path="/listingPage" component={listingPage} />
+        {/* <Route exact path="/" component={Homepage} /> */}
+
         <Route path="/" render={(props) => <Homepage listings={listings} />} />
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />

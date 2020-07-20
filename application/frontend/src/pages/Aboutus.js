@@ -11,14 +11,14 @@ const Aboutus = () => {
 
             <h1 >Our Team</h1>
 
-            <div className="row">
+            <div className="card-deck">
 
                 <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/raviteja.jpg`)} class="card-img-top" alt="Raviteja" />
                     <div class="card-body">
                         <h2 class="card-title">Raviteja Guttula</h2>
                         <h4 class="card-text">Team lead</h4>
-                        <Link to="/Ravi">
+                        <Link to="/ravi">
                             <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
@@ -29,7 +29,7 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Swetha Govindu</h2>
                         <h4 class="card-text">Frontend lead</h4>
-                        <Link to="/Swetha">
+                        <Link to="/swetha">
                             <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
@@ -40,7 +40,7 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Ashwini Uthirakumar</h2>
                         <h4 class="card-text">Backend lead</h4>
-                        <Link to="/Ashwini">
+                        <Link to="/ashwini">
                             <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
@@ -57,14 +57,16 @@ const Aboutus = () => {
                     </div>
                 </div>
             </div>
-            <div className="row">
+            <br/>
+            <div className="card-deck">
+
 
                 <div class="card col" style={{"padding-top":"1.5%"}}>
                     <img src={require(`../images/kevin.jpg`)} class="img-fluid card-img-top" alt="Kevin" />
                     <div class="card-body">
                         <h2 class="card-title">Kevin Zhou</h2>
                         <h4 class="card-text">Frontend developer</h4>
-                        <Link to="/Kevin">
+                        <Link to="/kevin">
                             <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
@@ -75,7 +77,7 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Troy Turner</h2>
                         <h4 class="card-text">Frontend developer</h4>
-                        <Link to="/Troy">
+                        <Link to="/troy">
                             <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
@@ -86,7 +88,7 @@ const Aboutus = () => {
                     <div class="card-body">
                         <h2 class="card-title">Fiona Senchyna</h2>
                         <h4 class="card-text">Backend developer</h4>
-                        <Link to="/Fiona">
+                        <Link to="/fiona">
                             <button class="btn btn-primary mt-2" style={{ "font-size": "1.5rem" }}>About</button>
                         </Link>
                     </div>
