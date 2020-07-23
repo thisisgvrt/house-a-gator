@@ -14,7 +14,8 @@ function Listing() {
         setFilename(e.target.files[0].name);
       };
     return (
-        <div class="container-fluid" style={{ "padding": "3%" }}>
+      <div class="container py-5">
+        <div class="card card-outline-secondary justify-content-center" style={{ "padding": "3%" }}>
             <div class="jumbotron">
                 <h1 class="title">New Listing</h1>
             </div>
@@ -95,6 +96,7 @@ function Listing() {
             
 
         </div>
+       </div> 
     );
 }
 
