@@ -3,9 +3,11 @@ from app import app
 
 from app.api.about import about_page
 from app.api.listing import listing_page
+from app.api.login import login_page
 
 app.register_blueprint(about_page, url_prefix='/api/about')
 app.register_blueprint(listing_page, url_prefix='/api/listings')
+app.register_blueprint(login_page, url_prefix='/api/login_page')
 
 @app.route('/media')
 def media():
