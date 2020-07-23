@@ -52,7 +52,7 @@ class Listing(CRUDMixin, db.Model):
     num_baths = db.Column(db.SmallInteger, nullable=False)
     num_beds = db.Column(db.SmallInteger, nullable=False)
     num_parking_spots = db.Column(db.SmallInteger, nullable=False)
-    pet_policy = db.Column(db.Boolean, nullable=False)
+    pet_policy = db.Column(db.Boolean, nullable=True)
     smoking_policy = db.Column(db.Boolean, nullable=False)
     
     def __repr__(self):

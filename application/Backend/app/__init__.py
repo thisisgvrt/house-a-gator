@@ -3,10 +3,19 @@ from flask_cors import CORS
 from app.database import db
 from flask_marshmallow import Marshmallow
 
+
+
+
 app = Flask(__name__)
 CORS(app)
 ma = Marshmallow(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@database:3306/house-a-gator'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:senchyna6@localhost:3306/house-a-gator'
+
+# path to images
+UPLOAD_FOLDER = '../../../media'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 db.init_app(app)
 
 from app.commands import create_db, drop_db, populate_db, recreate_db, populate_listings
