@@ -1,6 +1,6 @@
 from flask_login import UserMixin
-#from app.api.login import db, ma
 from app.database import db
+
 
 
 class Registration_record(UserMixin, db.Model):

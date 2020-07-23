@@ -15,13 +15,20 @@ app.config['REMEMBER_COOKIE_DURATION'] = datetime.timedelta(minutes=1)
 
 db.init_app(app)
 
-
 login_manager = LoginManager()
 
 "Todo"
 "The name of the view to redirect to when the user needs to log in(can be URL)"
 login_manager.login_view = 'login'
 login_manager.init_app(app)
+
+
+"Callback used to reload the user object from the user_ID stored in the session"
+from app.api.login.models import Registration_record
+@login_manager.user_loader
+def load_user(user_id):
+    return Registration_record.query.get(int(user_id))
+
 
 
 

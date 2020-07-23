@@ -6,19 +6,8 @@ from app.api.login.models import Registration_record
 from flask_marshmallow import Marshmallow
 
 "Todo: Create db table for login and signup"
-def create_app():
-    db.create_all()
 
-    "Callback used to reload the user object from the user_ID stored in the session"
-    from app.api.login.models import Registration_record
-    @login_manager.user_loader
-    def load_user(user_id):
-        return Registration_record.query.get(int(user_id))
-
-    return app
-
-
-
+#db.create_all()
 
 
 login_page = Blueprint('login_page', __name__)
@@ -32,6 +21,9 @@ class UsersSchema(ma.Schema):
 
         
 users_schema = UsersSchema()
+
+
+
 
 
 @login_page.route('/login', methods=['GET','POST'])
