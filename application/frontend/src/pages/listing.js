@@ -20,17 +20,17 @@ function Listing() {
                 <h1 class="title">New Listing</h1>
             </div>
 
-            <label for="">Title <span style={{ "color": "red" }}>*</span></label>
+            <label class="names" for="">Title <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Two bed house with an amazing view"></input>
             </div>
 
-            <label for="">Address</label>
+            <label class="names" for="">Address</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="1800 Holloway Ave. San Francisco, CA, 94132"></input>
             </div>
 
-            <label for="">Price <span style={{ "color": "red" }}>*</span></label>
+            <label class="names" for="">Price <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
@@ -41,17 +41,17 @@ function Listing() {
                 </div>
             </div>
 
-            <label for="">Beds <span style={{ "color": "red" }}>*</span></label>
+            <label class="names" for="">Beds <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="3"></input>
             </div>
 
-            <label for="">Baths <span style={{ "color": "red" }}>*</span></label>
+            <label class ="names" for="">Baths <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="2"></input>
             </div>
 
-            <label for="">Type <span style={{ "color": "red" }}>*</span></label>
+            <label class ="names" for="">Type <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"></input>
@@ -63,7 +63,7 @@ function Listing() {
                 </div>
             </div>
 
-            <label for="">Category <span style={{ "color": "red" }}>*</span></label>
+            <label class="names" for="">Category <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
             <select id="inputCategory" class="form-control"  required>
 <option>Select Category</option>
@@ -76,7 +76,7 @@ function Listing() {
 
                </div>
 
-            <label for="">Images <span style={{ "color": "red" }}>*</span></label>
+            <label class="names" for="">Images <span style={{ "color": "red" }}>*</span></label>
             <div class="input-group mb-3">
             <input type="file" class="form-control-file" id="exampleFormControlFile1" placeholder="Select Images" onChange={handleImage} />
 
