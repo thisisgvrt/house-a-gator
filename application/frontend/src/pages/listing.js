@@ -17,7 +17,6 @@ function Listing() {
         <div class="container-fluid" style={{ "padding": "3%" }}>
             <div class="jumbotron">
                 <h1 class="title">New Listing</h1>
-                <p>__</p>
             </div>
 
             <label for="">Title <span style={{ "color": "red" }}>*</span></label>
