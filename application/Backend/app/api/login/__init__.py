@@ -1,14 +1,10 @@
 from flask import Flask, Blueprint, request, jsonify, json, session, Response
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.api.login.models import Registration_record
 from flask_marshmallow import Marshmallow
-
-"Todo: Create db table for login and signup"
-
-#db.create_all()
-
+from app.database import db
 
 login_page = Blueprint('login_page', __name__)
 
@@ -24,7 +20,7 @@ users_schema = UsersSchema()
 
 
 
-
+"Route for Login/Sign-in"
 
 @login_page.route('/login', methods=['GET','POST'])
 def login_post():
@@ -47,6 +43,7 @@ def login_post():
     return Response("{'200':'ok'}", status=200, mimetype='application/json')
 
 
+"Route for Sign-Up"
 
 @login_page.route('/signup', methods=['POST','PUT'])
 def signup_post():
@@ -69,6 +66,7 @@ def signup_post():
     return Response("{'200':'ok'}", status=200, mimetype='application/json')
     
 
+"Route for Logout"
 @login_page.route('/logout', methods=['GET'])
 @login_required
 def logout():

@@ -1,12 +1,12 @@
 from flask_login import UserMixin
-from app.database import db
+from app.database import db, CRUDMixin 
 
 
 
 class Registration_record(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(30), nullable=False)
-    password = db.Column(db.String(100))
+    email = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(255))
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20))
 
@@ -21,14 +21,3 @@ class Registration_record(UserMixin, db.Model):
        return '<User %r>' % self.first_name
 
 
-
-
-
-
-
-
-"""sumary_line
-from practice import db
-from practice import create_app
-db.create_all(app=create_app())
-"""
