@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_marshmallow import Marshmallow
 
-from sqlalchemy import and_
+from sqlalchemy import and_, exc
 
 from app.api.listing.model import Listing, Media, ListingStatus, ListingType
 
@@ -73,26 +73,28 @@ def get_listings_route():
             filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
         return listings_schema.jsonify(filtered_result_set)
  
-# Add listing to db: need to do: images and google maps
 @listing_page.route('/', methods=['POST'])
 def add_listings_route():
-    title = request.json['title']
-    description = request.json['description']
-    building_number = request.json['building_number']
-    apartment = request.json['apartment']
-    street_name = request.json['street_name']
-    city = request.json['city']
-    zip_code = request.json['zip_code']
-    listing_price = request.json['listing_price']
-    listing_type = request.json['listing_type'] # House etc.. Nowhere for buy/sell...
-    is_furnished = strtobool(request.json['is_furnished'].lower())
-    square_footage = request.json['square_footage']
-    num_baths = request.json['num_baths']
-    num_beds = request.json['num_beds']
-    num_parking_spots = request.json['num_parking_spots']
-    pet_policy = strtobool(request.json['pet_policy'].lower())
-    smoking_policy = strtobool(request.json['smoking_policy'].lower())
-    media = request.json['media'] # list of dicts
+    try:
+        title = request.json['title']
+        description = request.json['description']
+        building_number = request.json['building_number']
+        apartment = request.json['apartment']
+        street_name = request.json['street_name']
+        city = request.json['city']
+        zip_code = request.json['zip_code']
+        listing_price = request.json['listing_price']
+        listing_type = request.json['listing_type']
+        square_footage = request.json['square_footage']
+        num_baths = request.json['num_baths']
+        num_beds = request.json['num_beds']
+        num_parking_spots = request.json['num_parking_spots']
+        is_furnished = strtobool(request.json['is_furnished'].lower())
+        pet_policy = strtobool(request.json['pet_policy'].lower())
+        smoking_policy = strtobool(request.json['smoking_policy'].lower())
+        media = request.json['media'] # can be multiple images...
+    except (ValueError, KeyError):
+        return jsonify({'error' : 'unacceptable data'}), status.HTTP_406_NOT_ACCEPTABLE
     # add new listing to Listings Model
     new_listing = Listing(title=title, description=description, building_number=building_number, 
         apartment=apartment, street_name=street_name, city=city, state='California',
@@ -102,22 +104,30 @@ def add_listings_route():
         num_baths=num_baths, num_beds=num_beds, num_parking_spots=num_parking_spots,
         pet_policy=pet_policy, smoking_policy=smoking_policy)
     db.session.add(new_listing)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except exc.DatabaseError:
+        db.session.rollback()
+        return jsonify({'error' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
     # add new media to Media Model
     for dicts in media:
         media_title = dicts.get('media_title')
         media_path = dicts.get('media_path')
         new_listing_media = Media(listing_id=new_listing.id, media_title=media_title,
-            media_path=media_path)
+            media_path=media_path)            
         db.session.add(new_listing_media)
+    try:
         db.session.commit()
+    except exc.DatabaseError:
+        db.session.rollback()
+        return jsonify({'error' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
     # add media files to file system
     '''media_file = request.files['media_file']
     credit: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
     if media_file and allowed_file(media_file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))'''
-    return jsonify({'message' : 'it works!'}), status.HTTP_201_CREATED
+    return jsonify({'message' : 'listing added'}), status.HTTP_201_CREATED
 
 # Get listing by id
 @listing_page.route('/<int:listing_id>', methods=['GET'])
