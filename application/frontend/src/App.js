@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/House-a-Gator.css';
 
 import Aboutus from "./pages/Aboutus";
-import login from "./pages/Login";
+import login from "./pages/login";
 import listingPage from "./pages/listing";
 import swetha from "./pages/profile/swetha";
 import kevin from "./pages/profile/kevin";
@@ -17,6 +17,8 @@ import fiona from "./pages/profile/fiona";
 import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
 import Homepage from "./pages/HomePage";
+import signup from "./pages/signup";
+import listingDetail from "./pages/ListingDetail";
 import {
   
   setIsLoggedIn,
@@ -24,17 +26,18 @@ import {
 const App = ({isLoggedIn, dispatch}) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
-
   const [listingType, setListingType] = React.useState("");
-
   const [listings, setListings] = React.useState([]);
+
   const handleLogout = () => {
     dispatch(setIsLoggedIn(false));
   }
   const fetchListings = () => {
     axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
       .then((res) => {
+
         setListings(res.data);
+        
       })
       .catch(e => "error loading the list listing" + e)
   }
@@ -45,8 +48,8 @@ const App = ({isLoggedIn, dispatch}) => {
 
   return (
  
+ <Router>
 
-    <Router>
          <h6 class="text-center">   SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only</h6>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +92,7 @@ const App = ({isLoggedIn, dispatch}) => {
             </li>)}
              {!isLoggedIn && (
              <li class="nav-item">
-             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/">Sign-up</NavLink>
+             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">Sign-up</NavLink>
            </li>
             )}
             {isLoggedIn && (
@@ -102,13 +105,15 @@ const App = ({isLoggedIn, dispatch}) => {
 
         </div>
       </nav>
+       
       <Switch>
         <Route path="/About-us" component={Aboutus} />
         <Route path="/login" component={login} />
         <Route path="/listingPage" component={listingPage} />
         {/* <Route exact path="/" component={Homepage} /> */}
-
-        <Route path="/" render={(props) => <Homepage listings={listings} />} />
+        <Route path="/signup" component={signup} />
+        <Route exact path="/" render={(props) => <Homepage listings={listings} />} />
+        <Route exact path='/listingDetail' component={listingDetail}/> 
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
