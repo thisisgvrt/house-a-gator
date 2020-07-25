@@ -18,6 +18,7 @@ import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
 import Homepage from "./pages/HomePage";
 import signup from "./pages/signup";
+import listingDetail from "./pages/ListingDetail";
 import {
   
   setIsLoggedIn,
@@ -47,8 +48,8 @@ const App = ({isLoggedIn, dispatch}) => {
 
   return (
  
+ <Router>
 
-    <Router>
          <h6 class="text-center">   SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only</h6>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,6 +105,7 @@ const App = ({isLoggedIn, dispatch}) => {
 
         </div>
       </nav>
+       
       <Switch>
         <Route path="/About-us" component={Aboutus} />
         <Route path="/login" component={login} />
@@ -111,6 +113,7 @@ const App = ({isLoggedIn, dispatch}) => {
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route path="/signup" component={signup} />
         <Route exact path="/" render={(props) => <Homepage listings={listings} />} />
+        <Route exact path='/listingDetail' component={listingDetail}/> 
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
