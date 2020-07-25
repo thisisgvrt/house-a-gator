@@ -14,7 +14,7 @@ const ashwini = () => {
                     </div>
 
                     <div class="profile-thumb-block">
-                        <img class="profile-card-3 img" src={require(`../../images/ashwini.jpg`)} alt="" class="" />
+                        <img class="profile-card-3 img" src={require(`../../images/ashwini.jpg`)} alt="" />
                     </div>
 
                     <hr></hr>

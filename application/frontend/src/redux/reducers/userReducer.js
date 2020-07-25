@@ -3,6 +3,8 @@ const INITIAL_STATE={
   isLoggedIn:false,
   loadingState:'init',
   email:'',
+  firstName:'',
+  lastName:''
   };
   
   const userReducer =(state = INITIAL_STATE,action) =>{
@@ -13,6 +15,16 @@ const INITIAL_STATE={
                   ...state,
                   email: action.email,
               };
+              case 'USER_SET_FIRST_NAME':
+                return{
+                    ...state,
+                    firstName: action.firstName,
+                };
+                case 'USER_SET_LAST_NAME':
+                    return{
+                        ...state,
+                        lastName: action.lastName,
+                    };
               case 'USER_SET_PASSWORD':
               return{
                   ...state,

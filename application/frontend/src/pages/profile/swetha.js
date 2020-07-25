@@ -14,7 +14,7 @@ const swetha = () => {
                     </div>
                     
     		        <div class="profile-thumb-block">
-    		            <img class="profile-card-3 img" src={ require(`../../images/swetha.jpg`)} alt="" class=""/>
+    		            <img class="profile-card-3 img" src={ require(`../../images/swetha.jpg`)} alt="swetha"/>
                     </div>
 
                     <hr></hr>

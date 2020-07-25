@@ -14,7 +14,7 @@ const troy = () => {
                     </div>
                     
     		        <div class="profile-thumb-block">
-    		            <img class="profile-card-3 img" src={ require(`../../images/Troy.jpg`)} alt="" class=""/>
+    		            <img class="profile-card-3 img" src={ require(`../../images/Troy.jpg`)} alt=""/>
                     </div>
 
                     <hr></hr>
