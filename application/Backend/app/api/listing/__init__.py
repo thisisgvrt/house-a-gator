@@ -61,23 +61,24 @@ detailed_listing_schema = ListingDetailedSchema()
 
 @listing_page.route('/', methods=['GET'])
 def get_listings_route():
-        arg1 = request.args['arg1']
-        arg2 = request.args['arg2']
-        query_string = request.args.get('query','')
-        query_filter = Listing.title.ilike(f'%{query_string}%')
-        listing_type = request.args.get('listing_type',None)
-        listing_status = request.args.get('listing_status','Verified')
-        listing_status_filter = ListingStatus.status_string.like(listing_status)
-        if listing_type is None:
-            filters = (and_(query_filter, listing_status_filter))
-            filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
+        user = request.args['user']
+        if user is None:
+            query_string = request.args.get('query','')
+            query_filter = Listing.title.ilike(f'%{query_string}%')
+            listing_type = request.args.get('listing_type',None)
+            listing_status = request.args.get('listing_status','Verified')
+            listing_status_filter = ListingStatus.status_string.like(listing_status)
+            if listing_type is None:
+                filters = (and_(query_filter, listing_status_filter))
+                filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
+            else:
+                listing_type_filter = ListingType.type_string.like(listing_type)
+                filters = (and_(query_filter, listing_type_filter, listing_status_filter))
+                filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
+            return listings_schema.jsonify(filtered_result_set)
         else:
-            listing_type_filter = ListingType.type_string.like(listing_type)
-            filters = (and_(query_filter, listing_type_filter, listing_status_filter))
-            filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
-        return 'Arg1 : ' + arg1 + 'Arg2 : ' + arg2
-       # return listings_schema.jsonify(filtered_result_set)
- 
+            return 'User : ' + user
+
 @listing_page.route('/', methods=['POST'])
 def add_listings_route():
     try:
