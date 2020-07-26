@@ -16,21 +16,28 @@ import troy from "./pages/profile/troy";
 import fiona from "./pages/profile/fiona";
 import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
-
 import Homepage from "./pages/HomePage";
-
-const App = (isLoggedIn, dispatch) => {
+import signup from "./pages/signup";
+import listingDetail from "./pages/ListingDetail";
+import {
+  
+  setIsLoggedIn,
+} from "./redux/actions/userActions";
+const App = ({isLoggedIn, dispatch}) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
-
   const [listingType, setListingType] = React.useState("");
-
   const [listings, setListings] = React.useState([]);
 
+  const handleLogout = () => {
+    dispatch(setIsLoggedIn(false));
+  }
   const fetchListings = () => {
     axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
       .then((res) => {
+
         setListings(res.data);
+        
       })
       .catch(e => "error loading the list listing" + e)
   }
@@ -40,7 +47,10 @@ const App = (isLoggedIn, dispatch) => {
   }, []);
 
   return (
-    <Router>
+ 
+ <Router>
+
+         <h6 class="text-center">   SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only</h6>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -66,28 +76,44 @@ const App = (isLoggedIn, dispatch) => {
               </form>
             </li>
 
-            <li class="ml-sm-5 nav-item">
+            {/* <li class="ml-sm-5 nav-item">
               <NavLink exact className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/">Listings</NavLink>
-            </li>
+            </li> */}
+           
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
             </li>
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
             </li>
+            {!isLoggedIn && (
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">Sign-in</NavLink>
-            </li>
-
+            </li>)}
+             {!isLoggedIn && (
+             <li class="nav-item">
+             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">Sign-up</NavLink>
+           </li>
+            )}
+            {isLoggedIn && (
+                 <li class="nav-item">
+                   
+                 <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/" onClick={handleLogout}>Logout</NavLink>
+               </li>
+            )}
           </ul>
 
         </div>
       </nav>
+       
       <Switch>
         <Route path="/About-us" component={Aboutus} />
         <Route path="/login" component={login} />
         <Route path="/listingPage" component={listingPage} />
-        <Route path="/" render={(props) => <Homepage listings={listings} />} />
+        {/* <Route exact path="/" component={Homepage} /> */}
+        <Route path="/signup" component={signup} />
+        <Route exact path="/" render={(props) => <Homepage listings={listings} />} />
+        <Route exact path='/listingDetail' component={listingDetail}/> 
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />

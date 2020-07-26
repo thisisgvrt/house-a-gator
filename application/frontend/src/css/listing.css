@@ -9,4 +9,9 @@
 
 .container-fluid .jumbotron .title{
     text-align: center;
+    color: yellow;
+}
+
+.names {
+    text-align: left;
 }

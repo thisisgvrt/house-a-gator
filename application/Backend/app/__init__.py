@@ -1,7 +1,9 @@
-from flask import Flask
+import datetime
+from flask import Flask, Response
 from flask_cors import CORS
 from app.database import db
 from flask_marshmallow import Marshmallow
+from flask_login import LoginManager
 
 
 
@@ -9,16 +11,41 @@ from flask_marshmallow import Marshmallow
 app = Flask(__name__)
 CORS(app)
 ma = Marshmallow(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:senchyna6@localhost:3306/house-a-gator'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@database:3306/house-a-gator'
 
 # path to images
 UPLOAD_FOLDER = '../../../media'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = "SuperSecretKey"
+app.config["REMEMBER_COOKIE_DURATION"] = datetime.timedelta(minutes=1)
+
 db.init_app(app)
+login_manager = LoginManager()
+
+"Todo"
+"The name of the view to redirect to when the user needs to log in(can be URL)"
+login_manager.login_view = "login"
+login_manager.init_app(app)
+
+
+"Callback used to reload the user object from the user_ID stored in the session"
+"determines whether or not the user is authorized to view the page (logged in)"
+from app.api.user.models import Registration_record
+
+"""Check if user is logged-in upon page load."""
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Registration_record.query.get(int(user_id))
+
 
 from app.commands import create_db, drop_db, populate_db, recreate_db, populate_listings
+
 for command in [create_db, drop_db, populate_db, recreate_db, populate_listings]:
     app.cli.command()(command)
 
