@@ -25,6 +25,7 @@ black = "*"
 flask-cors = "*"
 mysql-connector-python = "*"
 flask-login = "*"
+flask-api = "*"
 
 [requires]
 python_version = "3.7"

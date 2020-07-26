@@ -1,6 +1,5 @@
 from flask_login import UserMixin
-from app.database import db, CRUDMixin 
-
+from app.database import db, CRUDMixin
 
 
 class Registration_record(UserMixin, db.Model):
@@ -15,9 +14,6 @@ class Registration_record(UserMixin, db.Model):
         self.password = password
         self.first_name = first_name
         self.last_name = last_name
-        
-        
+
     def __repr__(self):
-       return '<User %r>' % self.first_name
-
-
+        return "<User %r>" % self.first_name

@@ -3,17 +3,21 @@ from app import app
 
 from app.api.about import about_page
 from app.api.listing import listing_page
-from app.api.login import login_page
+from app.api.session import session_page
+from app.api.user import user_page
 
-app.register_blueprint(about_page, url_prefix='/api/about')
-app.register_blueprint(listing_page, url_prefix='/api/listings')
-app.register_blueprint(login_page, url_prefix='/api/login_page')
+app.register_blueprint(about_page, url_prefix="/api/about")
+app.register_blueprint(listing_page, url_prefix="/api/listings")
+app.register_blueprint(user_page, url_prefix="/api/user")
+app.register_blueprint(session_page, url_prefix="/api/session")
 
-@app.route('/media')
+
+@app.route("/media")
 def media():
-    file_name = request.args.get('file_name','')
+    file_name = request.args.get("file_name", "")
     return send_file(f"../media/{file_name}")
 
-@app.route('/')
+
+@app.route("/")
 def index():
     return "Hello, World!"
