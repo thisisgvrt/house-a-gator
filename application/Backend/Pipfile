@@ -26,8 +26,6 @@ flask-cors = "*"
 mysql-connector-python = "*"
 flask-api = "*"
 pillow = "*"
-flask-login = "*"
-flask-api = "*"
 
 [requires]
 python_version = "3.7"
