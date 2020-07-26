@@ -38,4 +38,4 @@ def post_message():
 @messaging_page.route("/", methods=["GET"])
 @login_required
 def get_messages_route():
-    return messages_schema.jsonify(Message.query.filter(Message.receiver_id == current_user.id).all()), , status.HTTP_200_OK
+    return messages_schema.jsonify(Message.query.filter(Message.receiver_id == current_user.id).all()), status.HTTP_200_OK

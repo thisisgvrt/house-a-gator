@@ -38,9 +38,9 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-from app.commands import create_db, drop_db, populate_db, recreate_db, populate_listings
+from app.commands import create_db, drop_db, populate_users, recreate_db, populate_listings
 
-for command in [create_db, drop_db, populate_db, recreate_db, populate_listings]:
+for command in [create_db, drop_db, populate_users, recreate_db, populate_listings]:
     app.cli.command()(command)
 
 from app import api

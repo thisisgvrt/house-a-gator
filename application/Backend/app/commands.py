@@ -5,25 +5,19 @@ import click
 from app.database import db
 from app.api.user.model import User
 from app.api.listing.model import Listing, Media, ListingType, ListingStatus
-
-
-def populate_team():
-    team = [
-        {
-            "username": "Raviteja Guttula",
-            "description": "I am a Graduate student at SFSU. I like exploring new technologies.",
-            "hobbies": "cooking, running and watching movies",
-        }
-    ]
-
+from werkzeug.security import generate_password_hash
 
 @click.option("--num_users", default=5, help="Number of users.")
-def populate_db(num_users):
+def populate_users(num_users):
     """Populates the database with seed data."""
     fake = Faker()
     users = []
-    for _ in range(num_users):
-        users.append(User(username=fake.user_name(), description=fake.text()))
+    for _ in range(num_users-1):
+        first_name = fake.first_name()
+        last_name = fake.last_name()
+        email_id = f"{first_name}.{last_name}@fake.com"
+        users.append(User(email=email_id, password=generate_password_hash(fake.password(), method="sha256"),first_name=first_name,last_name=last_name))
+    users.append(User(email="test@test.com",password=generate_password_hash("password", method="sha256"),first_name="test",last_name="test"))
     for user in users:
         db.session.add(user)
     db.session.commit()
