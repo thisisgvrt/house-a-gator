@@ -29,11 +29,11 @@ class Listing(CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    building_number = db.Column(db.String(10), nullable=False)
-    apartment = db.Column(db.String(50), nullable=False)
-    street_name = db.Column(db.String(50), nullable=False)
-    city = db.Column(db.String(40), nullable=False)
-    state = db.Column(db.String(20), nullable=False)
+    building_number = db.Column(db.String(10), nullable=False) #t
+    apartment = db.Column(db.String(50), nullable=False) #t
+    street_name = db.Column(db.String(50), nullable=False) 
+    city = db.Column(db.String(40), nullable=False) #t
+    state = db.Column(db.String(20), nullable=False) #
     zip_code = db.Column(db.String(20), nullable=False)
     country = db.Column(db.String(30), nullable=False)
     listing_price = db.Column(db.Integer, nullable=False)

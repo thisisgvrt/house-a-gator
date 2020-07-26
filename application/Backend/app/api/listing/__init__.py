@@ -14,6 +14,11 @@ from app import UPLOAD_FOLDER
 import os 
 from werkzeug.utils import secure_filename
 
+import base64 #decode base64 to image file
+from io import BytesIO
+from PIL import Image
+
+
 listing_page = Blueprint('listing_page', __name__)
 
 ma = Marshmallow()
@@ -110,18 +115,27 @@ def add_listings_route():
         db.session.rollback()
         return jsonify({'error' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
     # add new media to Media Model
-    for dicts in media:
-        media_title = dicts.get('media_title')
-        media_path = dicts.get('media_path')
+    for media_item in media:
+        media_title = media_item.get('media_title')
+        media_path = media_item.get('media_path')
         new_listing_media = Media(listing_id=new_listing.id, media_title=media_title,
             media_path=media_path)            
         db.session.add(new_listing_media)
+        media_base64 = media_item.get('media_file_b64')
+        # credit: 
+        im_bytes = base64.b64decode(media_base64)
+        im_file = BytesIO(im_bytes)  # convert image to file-like object
+        img = Image.open(im_file)
+        image = secure_filename(img)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], image))
+        #img.show()
     try:
         db.session.commit()
     except exc.DatabaseError:
         db.session.rollback()
         return jsonify({'error' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
     # add media files to file system
+    
     '''media_file = request.files['media_file']
     credit: https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
     if media_file and allowed_file(media_file.filename):
