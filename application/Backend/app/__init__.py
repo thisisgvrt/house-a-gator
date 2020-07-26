@@ -28,14 +28,14 @@ login_manager.init_app(app)
 
 "Callback used to reload the user object from the user_ID stored in the session"
 "determines whether or not the user is authorized to view the page (logged in)"
-from app.api.user.models import Registration_record
+from app.api.user.model import User
 
 """Check if user is logged-in upon page load."""
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Registration_record.query.get(int(user_id))
+    return User.query.get(int(user_id))
 
 
 from app.commands import create_db, drop_db, populate_db, recreate_db, populate_listings

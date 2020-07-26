@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, request, jsonify, json, session, Response
-from app.api.user.models import Registration_record
+from app.api.user.model import User
 from app.api.user import user_schema
 from flask_login import (
     LoginManager,
@@ -20,7 +20,7 @@ def create_session():
     email = request.json["email"]
     password = request.json["password"]
     remember = request.json["remember"]
-    users = Registration_record.query.filter_by(email=email).first()
+    users = User.query.filter_by(email=email).first()
     if users is None or not check_password_hash(users.password, password):
         return jsonify({"400": "Not found"}), status.HTTP_400_BAD_REQUEST
     else:

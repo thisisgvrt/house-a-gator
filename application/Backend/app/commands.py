@@ -3,7 +3,7 @@ from random import choice, randint
 import click
 
 from app.database import db
-from app.api.about.model import User
+from app.api.user.model import User
 from app.api.listing.model import Listing, Media, ListingType, ListingStatus
 
 

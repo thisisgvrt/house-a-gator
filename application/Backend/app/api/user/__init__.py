@@ -8,7 +8,7 @@ from flask_login import (
     current_user,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.api.user.models import Registration_record
+from app.api.user.model import User
 from flask_marshmallow import Marshmallow
 from flask_api import status
 
@@ -36,14 +36,14 @@ def signup_post():
     first_name = request.json.get("first_name")
     last_name = request.json.get("last_name")
 
-    users = Registration_record.query.filter_by(email=email).first()
+    users = User.query.filter_by(email=email).first()
 
     if users:
         return Response(
             "{'400':'Already exists'}", status=400, mimetype="application/json"
         )
 
-    new_user = Registration_record(
+    new_user = User(
         email=email,
         password=generate_password_hash(password, method="sha256"),
         first_name=first_name,
