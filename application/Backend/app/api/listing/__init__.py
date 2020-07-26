@@ -16,6 +16,14 @@ from io import BytesIO
 from PIL import Image
 UPLOAD_FOLDER = 'media/' # path to store images
 
+from flask_login import (
+    login_required,
+    current_user,
+)
+from flask_api import status
+from app.api.user.model import User
+from app.api.user import user_schema
+
 listing_page = Blueprint('listing_page', __name__)
 
 ma = Marshmallow()
@@ -61,7 +69,7 @@ detailed_listing_schema = ListingDetailedSchema()
 
 @listing_page.route('/', methods=['GET'])
 def get_listings_route():
-        user = request.args['user']
+        user = a = request.args.get('user', None)
         if user is None:
             query_string = request.args.get('query','')
             query_filter = Listing.title.ilike(f'%{query_string}%')
@@ -80,6 +88,7 @@ def get_listings_route():
             return 'User : ' + user
 
 @listing_page.route('/', methods=['POST'])
+@login_required
 def add_listings_route():
     try:
         title = request.json['title']
@@ -108,7 +117,7 @@ def add_listings_route():
         listing_status='1', listing_type=listing_type,
         listing_views='0', is_furnished=is_furnished, square_footage=square_footage,
         num_baths=num_baths, num_beds=num_beds, num_parking_spots=num_parking_spots,
-        pet_policy=pet_policy, smoking_policy=smoking_policy)
+        pet_policy=pet_policy, smoking_policy=smoking_policy, listing_user=current_user.id)
     db.session.add(new_listing)
     try:
         db.session.commit()

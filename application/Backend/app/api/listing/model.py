@@ -1,5 +1,6 @@
 
 from app.database import db, CRUDMixin 
+from app.user import Registration_record
 
 class ListingStatus(db.Model):
     __tablename__ = 'listing_status'
@@ -43,8 +44,8 @@ class Listing(CRUDMixin, db.Model):
     listing_status = db.Column(db.Integer, db.ForeignKey('listing_status.id'), nullable=False)
     lstatus = db.relationship('ListingStatus', back_populates="listing")
     
-    listing_type = db.Column(db.Integer, db.ForeignKey('listing_type.id'), nullable=False)
-    ltype = db.relationship('ListingType', back_populates="listing")
+    listing_user = db.Column(db.Integer, db.ForeignKey('registration_record.id'), nullable=False)
+    luser = db.relationship('Registration_Record', back_populates="listing")
     
     listing_views = db.Column(db.Integer, nullable=False)
     is_furnished = db.Column(db.Boolean, nullable=False)
@@ -54,6 +55,8 @@ class Listing(CRUDMixin, db.Model):
     num_parking_spots = db.Column(db.SmallInteger, nullable=False)
     pet_policy = db.Column(db.Boolean, nullable=True)
     smoking_policy = db.Column(db.Boolean, nullable=False)
+
+    listing_user = db.Column(db.Integer, db.ForeignKey('listing_status.id'), nullable=False)
     
     def __repr__(self):
         return '<Listing #%s:%r>' % (self.id, self.title)
