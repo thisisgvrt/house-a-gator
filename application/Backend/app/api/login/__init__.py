@@ -69,6 +69,12 @@ def signup_post():
 "Route for Logout"
 @login_page.route('/logout', methods=['GET'])
 @login_required
-def logout():
-    logout_user()
-    return Response("{'200':'ok'}", status=200, mimetype='application/json')
+def logout(): 
+    try:
+        logout_user()
+        return Response("{'200':'ok'}", status=200, mimetype='application/json')
+        
+    except:
+        
+        return Response("{'404':'Not found'}", status=404, mimetype='application/json')
+    

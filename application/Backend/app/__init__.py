@@ -10,7 +10,7 @@ CORS(app)
 ma = Marshmallow(app)
 
 #mysql+mysqlconnector://<user>:<password>@<host>[:<port>]/<dbname>
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@database:3306/house-a-gator'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:BubbleTea@ForLife_20@localhost:3306/house-a-gator'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = 'SuperSecretKey'
 app.config['REMEMBER_COOKIE_DURATION'] = datetime.timedelta(minutes=1)
@@ -27,6 +27,8 @@ login_manager.init_app(app)
 "Callback used to reload the user object from the user_ID stored in the session"
 "determines whether or not the user is authorized to view the page (logged in)"
 from app.api.login.models import Registration_record
+
+"""Check if user is logged-in upon page load."""
 @login_manager.user_loader
 def load_user(user_id):
     return Registration_record.query.get(int(user_id))
