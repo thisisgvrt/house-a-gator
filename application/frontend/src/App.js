@@ -20,9 +20,9 @@ import Homepage from "./pages/HomePage";
 import signup from "./pages/signup";
 import listingDetail from "./pages/ListingDetail";
 import {
-
   setIsLoggedIn,
 } from "./redux/actions/userActions";
+
 const App = ({ isLoggedIn, dispatch }) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
