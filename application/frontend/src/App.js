@@ -19,6 +19,8 @@ import henry from "./pages/profile/henry";
 import Homepage from "./pages/HomePage";
 import signup from "./pages/signup";
 import ListingDetail from "./pages/ListingDetail";
+import userDashBoard from "./pages/userDashboard";
+
 import {
   setIsLoggedIn,
 } from "./redux/actions/userActions";
@@ -111,23 +113,27 @@ const App = ({ isLoggedIn, dispatch }) => {
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
             </li>
+            {isLoggedIn && (
             <li class="nav-item">
-              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
-            </li>
+              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/userDashBoard">My DashBoard</NavLink>
+            </li>)}
             {!isLoggedIn && (
-              <li class="nav-item">
-                <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">Sign-in</NavLink>
-              </li>)}
-            {!isLoggedIn && (
-              <li class="nav-item">
-                <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">Sign-up</NavLink>
-              </li>
+            <li class="nav-item">
+              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">SignIn</NavLink>
+            </li>)}
+             {!isLoggedIn && (
+             <li class="nav-item">
+             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">SignUp</NavLink>
+           </li>
             )}
             {isLoggedIn && (
               <li class="nav-item">
                 <a className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" href="#" onClick={handleLogout}>Logout</a>
               </li>
             )}
+             <li class="nav-item">
+              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
+            </li>
           </ul>
 
         </div>
@@ -139,8 +145,9 @@ const App = ({ isLoggedIn, dispatch }) => {
         <Route path="/listingPage" component={listingPage} />
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route path="/signup" component={signup} />
-        <Route exact path="/" render={(props) => <Homepage listings={listings} />} />
+        <Route exact path="/" render={(props) => <Homepage {...props} listings={listings} />} />
         <Route path='/listingDetail/:listingId' render={(props) => <ListingDetail {...props} listings={listings} isLoggedIn={isLoggedIn} />} />
+        <Route  path='/userDashBoard' component={userDashBoard}/> 
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
