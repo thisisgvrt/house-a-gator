@@ -160,6 +160,7 @@ def populate_listings(num_listings):
                 listing_price=randint(10, 50) * choice([50, 100, 200, 300]),
                 listing_status=verified_status_id,
                 listing_type=listing_info[idx]["house_type"],
+                listing_user=choice([1, 2, 3, 4, 5]),
                 listing_views=0,
                 is_furnished=choice([False, True]),
                 square_footage=choice([10, 30, 40]) * choice([50, 75, 100]),
