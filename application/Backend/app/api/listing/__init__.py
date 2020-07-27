@@ -6,6 +6,8 @@ from sqlalchemy import and_, exc
 from app.api.listing.model import Listing, Media, ListingStatus, ListingType
 
 from distutils.util import strtobool
+from random import randint
+
 from app.database import db
 from flask_api import status
 
@@ -73,23 +75,33 @@ detailed_listing_schema = ListingDetailedSchema()
 def get_listings_route():
     user = request.args.get('user', None)
     query_string = request.args.get('query','')
-    query_filter = Listing.title.ilike(f'%{query_string}%')
     listing_type = request.args.get('listing_type',None)
+    listing_category = request.args.get('listing_category',None)
+    distance = request.args.get('distance',None)
     listing_status = request.args.get('listing_status','Verified')
-    listing_status_filter = ListingStatus.status_string.like(listing_status)
+    
     if user is not None:
         if user == str(current_user.id):
             filtered_result_set = Listing.query.filter_by(listing_user=user).all()
         else:
             return jsonify({"403": "requesting user not logged in"}), status.HTTP_403_FORBIDDEN
-    elif listing_type is None:
-        filters = (and_(query_filter, listing_status_filter))
-        filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
-    else:
-        listing_type_filter = ListingType.type_string.like(listing_type)
-        filters = (and_(query_filter, listing_type_filter, listing_status_filter))
-        filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
-    return listings_schema.jsonify(filtered_result_set)
+
+    filters = []
+
+    if query_string != '':
+        query_filter = Listing.title.ilike(f'%{query_string}%')
+        filters.append(query_filter) 
+    if listing_type is not None:
+        listing_type_filter = Listing.for_rent_flag.is_((strtobool(listing_type) == 1))
+        filters.append(listing_type_filter)
+    if listing_category is not None:
+        listing_category_filter = ListingType.type_string.like(listing_category)
+        filters.append(listing_category_filter)
+    if distance is not None:
+        distance_filter = Listing.distance.__le__(int(distance))
+        filters.append(distance_filter)
+
+    return listings_schema.jsonify(Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(and_(*filters)).all())
 
 # Get listing by id
 @listing_page.route('/<int:listing_id>', methods=['GET'])
@@ -135,7 +147,7 @@ def add_listings_route():
         listing_status='1', listing_type=listing_type,
         listing_views='0', is_furnished=is_furnished, square_footage=square_footage,
         num_baths=num_baths, num_beds=num_beds, num_parking_spots=num_parking_spots,
-        pet_policy=pet_policy, smoking_policy=smoking_policy, listing_user=current_user.id)
+        pet_policy=pet_policy, smoking_policy=smoking_policy, listing_user=current_user.id, distance=randint(0,100))
     db.session.add(new_listing)
     try:
         db.session.commit()

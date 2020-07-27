@@ -39,6 +39,7 @@ class Listing(CRUDMixin, db.Model):
     zip_code = db.Column(db.String(20), nullable=True)
     country = db.Column(db.String(30), nullable=True)
     listing_price = db.Column(db.Integer, nullable=False)
+    distance = db.Column(db.Integer, nullable=False)
     
     media = db.relationship('Media', back_populates="listing")
     

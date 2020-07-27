@@ -27,6 +27,8 @@ const App = ({ isLoggedIn, dispatch }) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [listingType, setListingType] = React.useState("");
+  const [listingCategory, setListingCategory] = React.useState("");
+  const [distance, setDistance] = React.useState("");
   const [listings, setListings] = React.useState([]);
 
   const handleLogout = () => {
@@ -47,7 +49,7 @@ const App = ({ isLoggedIn, dispatch }) => {
       .catch(e => "error loading the list listing" + e)
   }
   const fetchListings = () => {
-    axios.get(`/api/listings?query=${searchTerm}` + (listingType !== "" ? `&listing_type=${listingType}` : ""))
+    axios.get(`/api/listings?query=${searchTerm}` + (listingType !== "" ? `&listing_type=${listingType}` : "") + (listingCategory !== "" ? `&listing_category=${listingCategory}` : "") + (distance !== "" ? `&distance=${distance}` : ""))
       .then((res) => {
         setListings(res.data);
       })
@@ -83,11 +85,23 @@ const App = ({ isLoggedIn, dispatch }) => {
               <form class="form-inline nav-link-line-height">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
                 <select class="custom-select mr-sm-2" value={listingType} onChange={event => setListingType(event.target.value)} >
-                  <option selected value="">All Listing Types</option>
+                  <option selected value="">All Types</option>
+                  <option value="True">Rent</option>
+                  <option value="False">Sell</option>
+                </select>
+                <select class="custom-select mr-sm-2" value={listingCategory} onChange={event => setListingCategory(event.target.value)} >
+                  <option selected value="">All Categories</option>
                   <option value="Houses">Houses</option>
                   <option value="Condos">Condos</option>
                   <option value="Apartments">Apartments</option>
                   <option value="Town Houses">Town Houses</option>
+                </select>
+                <select class="custom-select mr-sm-2" value={distance} onChange={event => setDistance(event.target.value)} >
+                  <option selected value="">Any distance from SFSU</option>
+                  <option value={1}>Within 1 mile</option>
+                  <option value={5}>Within 5 miles</option>
+                  <option value={10}>Within 10 miles</option>
+                  <option value={50}>Within 50 miles</option>
                 </select>
                 <button class="btn btn-outline-success" type="button" onClick={fetchListings} >Search</button>
               </form>

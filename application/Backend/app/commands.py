@@ -167,6 +167,7 @@ def populate_listings(num_listings):
                 square_footage=choice([10, 30, 40]) * choice([50, 75, 100]),
                 num_baths=randint(1, 4),
                 num_beds=randint(1, 4),
+                distance=randint(1,100),
                 num_parking_spots=randint(1, 3),
                 pet_policy=choice([False, True]),
                 smoking_policy=choice([False, True]),
