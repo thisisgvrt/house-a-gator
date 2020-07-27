@@ -24,6 +24,7 @@ googlemaps = "*"
 black = "*"
 flask-cors = "*"
 mysql-connector-python = "*"
+flask-login = "*"
 flask-api = "*"
 pillow = "*"
 

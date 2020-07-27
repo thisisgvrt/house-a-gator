@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 ma = Marshmallow(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:senchyna6@localhost:3306/house-a-gator'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost:3306/house-a-gator'
 
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
