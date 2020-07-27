@@ -77,8 +77,12 @@ def get_listings_route():
         listing_type = request.args.get('listing_type',None)
         listing_status = request.args.get('listing_status','Verified')
         listing_status_filter = ListingStatus.status_string.like(listing_status)
+        cur_user = str(current_user.id)
         if user is not None:
-            filtered_result_set = Listing.query.filter_by(listing_user=user).all()
+            if user == str(current_user.id):
+                filtered_result_set = Listing.query.filter_by(listing_user=user).all()
+            else:
+                return jsonify({"403": "requesting user not logged in"}), status.HTTP_403_FORBIDDEN
         elif listing_type is None:
             filters = (and_(query_filter, listing_status_filter))
             filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
@@ -92,11 +96,11 @@ def get_listings_route():
 @listing_page.route('/<int:listing_id>', methods=['GET'])
 def listing_by_id_route(listing_id):
     listing = Listing.query.get(listing_id)
-    # check that listing exists
     if listing is None:
         return jsonify({"404": "listing does not exist"}), status.HTTP_404_NOT_FOUND
-    # check that listing is verified
-    if listing.listing_status != 2: # verified status
+    if current_user.is_authenticated and listing.listing_user == current_user.id:
+        return detailed_listing_schema.jsonify(listing), status.HTTP_200_OK
+    elif listing.listing_status != 2: # verified status
         return jsonify({"403": "listing is not verified"}), status.HTTP_403_FORBIDDEN
     return detailed_listing_schema.jsonify(listing), status.HTTP_200_OK
 
