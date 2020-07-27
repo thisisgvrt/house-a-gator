@@ -2,12 +2,13 @@ from flask_login import UserMixin
 from app.database import db, CRUDMixin
 
 
-class Registration_record(UserMixin, db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255))
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20))
+    listing = db.relationship('Listing', back_populates="luser")
 
     def __init__(self, email, password, first_name, last_name):
         self.email = email

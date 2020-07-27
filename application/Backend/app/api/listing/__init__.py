@@ -21,8 +21,10 @@ from flask_login import (
     current_user,
 )
 from flask_api import status
+
 from app.api.user.model import User
 from app.api.user import user_schema
+
 
 listing_page = Blueprint('listing_page', __name__)
 
@@ -69,24 +71,36 @@ detailed_listing_schema = ListingDetailedSchema()
 
 @listing_page.route('/', methods=['GET'])
 def get_listings_route():
-        user = a = request.args.get('user', None)
-        if user is None:
-            query_string = request.args.get('query','')
-            query_filter = Listing.title.ilike(f'%{query_string}%')
-            listing_type = request.args.get('listing_type',None)
-            listing_status = request.args.get('listing_status','Verified')
-            listing_status_filter = ListingStatus.status_string.like(listing_status)
-            if listing_type is None:
-                filters = (and_(query_filter, listing_status_filter))
-                filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
-            else:
-                listing_type_filter = ListingType.type_string.like(listing_type)
-                filters = (and_(query_filter, listing_type_filter, listing_status_filter))
-                filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
-            return listings_schema.jsonify(filtered_result_set)
+        user = request.args.get('user', None)
+        query_string = request.args.get('query','')
+        query_filter = Listing.title.ilike(f'%{query_string}%')
+        listing_type = request.args.get('listing_type',None)
+        listing_status = request.args.get('listing_status','Verified')
+        listing_status_filter = ListingStatus.status_string.like(listing_status)
+        if user is not None:
+            filtered_result_set = Listing.query.filter_by(listing_user=user).all()
+        elif listing_type is None:
+            filters = (and_(query_filter, listing_status_filter))
+            filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
         else:
-            return 'User : ' + user
+            listing_type_filter = ListingType.type_string.like(listing_type)
+            filters = (and_(query_filter, listing_type_filter, listing_status_filter))
+            filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
+        return listings_schema.jsonify(filtered_result_set)
 
+# Get listing by id
+@listing_page.route('/<int:listing_id>', methods=['GET'])
+def listing_by_id_route(listing_id):
+    listing = Listing.query.get(listing_id)
+    # check that listing exists
+    if listing is None:
+        return jsonify({"404": "listing does not exist"}), status.HTTP_404_NOT_FOUND
+    # check that listing is verified
+    if listing.listing_status != 2: # verified status
+        return jsonify({"403": "listing is not verified"}), status.HTTP_403_FORBIDDEN
+    return detailed_listing_schema.jsonify(listing), status.HTTP_200_OK
+
+# post listing
 @listing_page.route('/', methods=['POST'])
 @login_required
 def add_listings_route():
@@ -127,7 +141,7 @@ def add_listings_route():
     # add new media to Media Model
     for media_item in media:
         media_title = media_item.get('media_title')
-        media_path = media_item.get('media_path')
+        media_path = str(new_listing.id) + '_' + media_item.get('media_path')
         new_listing_media = Media(listing_id=new_listing.id, media_title=media_title,
             media_path=media_path)            
         db.session.add(new_listing_media)
@@ -139,26 +153,14 @@ def add_listings_route():
             img = Image.open(image_file)
         except OSError:
             return jsonify({'406' : 'unacceptable file extension'}), status.HTTP_406_NOT_ACCEPTABLE
-        # will overwrite existing file if they have the same name!!!!
         img.save(os.path.join(UPLOAD_FOLDER + media_path))
     try:
         db.session.commit()
     except exc.DatabaseError:
         db.session.rollback()
-        return jsonify({'406' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
+        return jsonify({'406' : 'could not add listing to database because of image'}), status.HTTP_406_NOT_ACCEPTABLE
     return jsonify({'201' : 'listing added'}), status.HTTP_201_CREATED
 
-# Get listing by id
-@listing_page.route('/<int:listing_id>', methods=['GET'])
-def listing_by_id_route(listing_id):
-    listing = Listing.query.get(listing_id)
-    # check that listing exists
-    if listing is None:
-        return jsonify({"404": "listing does not exist"}), status.HTTP_404_NOT_FOUND
-    # check that listing is verified
-    if listing.listing_status != 2:
-        return jsonify({"403": "listing is not verified"}), status.HTTP_403_FORBIDDEN
-    return detailed_listing_schema.jsonify(listing), status.HTTP_200_OK
 
 
 

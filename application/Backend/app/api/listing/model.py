@@ -1,6 +1,6 @@
 
 from app.database import db, CRUDMixin 
-from app.user import Registration_record
+from app.api.user.model import User
 
 class ListingStatus(db.Model):
     __tablename__ = 'listing_status'
@@ -22,7 +22,7 @@ class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'), nullable=False)
     media_title = db.Column(db.String(50), nullable=False)
-    media_path = db.Column(db.String(255), nullable=False)
+    media_path = db.Column(db.String(255), nullable=False, unique=True)
     listing = db.relationship('Listing', back_populates="media")
 
 class Listing(CRUDMixin, db.Model):
@@ -30,13 +30,13 @@ class Listing(CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    building_number = db.Column(db.String(10), nullable=False) #t
-    apartment = db.Column(db.String(50), nullable=False) #t
+    building_number = db.Column(db.String(10), nullable=True)
+    apartment = db.Column(db.String(50), nullable=True)
     street_name = db.Column(db.String(50), nullable=False) 
-    city = db.Column(db.String(40), nullable=False) #t
-    state = db.Column(db.String(20), nullable=False) #
-    zip_code = db.Column(db.String(20), nullable=False)
-    country = db.Column(db.String(30), nullable=False)
+    city = db.Column(db.String(40), nullable=True)
+    state = db.Column(db.String(20), nullable=True)
+    zip_code = db.Column(db.String(20), nullable=True)
+    country = db.Column(db.String(30), nullable=True)
     listing_price = db.Column(db.Integer, nullable=False)
     
     media = db.relationship('Media', back_populates="listing")
@@ -44,19 +44,20 @@ class Listing(CRUDMixin, db.Model):
     listing_status = db.Column(db.Integer, db.ForeignKey('listing_status.id'), nullable=False)
     lstatus = db.relationship('ListingStatus', back_populates="listing")
     
-    listing_user = db.Column(db.Integer, db.ForeignKey('registration_record.id'), nullable=False)
-    luser = db.relationship('Registration_Record', back_populates="listing")
+    listing_type = db.Column(db.Integer, db.ForeignKey('listing_type.id'), nullable=False)
+    ltype = db.relationship('ListingType', back_populates="listing")
     
+    listing_user = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    luser = db.relationship("User", back_populates="listing")
+
     listing_views = db.Column(db.Integer, nullable=False)
-    is_furnished = db.Column(db.Boolean, nullable=False)
-    square_footage = db.Column(db.Integer, nullable=False)
+    is_furnished = db.Column(db.Boolean, nullable=True)
+    square_footage = db.Column(db.Integer, nullable=True)
     num_baths = db.Column(db.SmallInteger, nullable=False)
     num_beds = db.Column(db.SmallInteger, nullable=False)
-    num_parking_spots = db.Column(db.SmallInteger, nullable=False)
+    num_parking_spots = db.Column(db.SmallInteger, nullable=True)
     pet_policy = db.Column(db.Boolean, nullable=True)
-    smoking_policy = db.Column(db.Boolean, nullable=False)
-
-    listing_user = db.Column(db.Integer, db.ForeignKey('listing_status.id'), nullable=False)
+    smoking_policy = db.Column(db.Boolean, nullable=True)
     
     def __repr__(self):
         return '<Listing #%s:%r>' % (self.id, self.title)

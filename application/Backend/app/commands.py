@@ -3,27 +3,21 @@ from random import choice, randint
 import click
 
 from app.database import db
-from app.api.about.model import User
+from app.api.user.model import User
 from app.api.listing.model import Listing, Media, ListingType, ListingStatus
-
-
-def populate_team():
-    team = [
-        {
-            "username": "Raviteja Guttula",
-            "description": "I am a Graduate student at SFSU. I like exploring new technologies.",
-            "hobbies": "cooking, running and watching movies",
-        }
-    ]
-
+from werkzeug.security import generate_password_hash
 
 @click.option("--num_users", default=5, help="Number of users.")
-def populate_db(num_users):
+def populate_users(num_users):
     """Populates the database with seed data."""
     fake = Faker()
     users = []
-    for _ in range(num_users):
-        users.append(User(username=fake.user_name(), description=fake.text()))
+    for _ in range(num_users-1):
+        first_name = fake.first_name()
+        last_name = fake.last_name()
+        email_id = f"{first_name}.{last_name}@fake.com"
+        users.append(User(email=email_id, password=generate_password_hash(fake.password(), method="sha256"),first_name=first_name,last_name=last_name))
+    users.append(User(email="test@test.com",password=generate_password_hash("password", method="sha256"),first_name="test",last_name="test"))
     for user in users:
         db.session.add(user)
     db.session.commit()
@@ -166,6 +160,7 @@ def populate_listings(num_listings):
                 listing_price=randint(10, 50) * choice([50, 100, 200, 300]),
                 listing_status=verified_status_id,
                 listing_type=listing_info[idx]["house_type"],
+                listing_user=choice([1, 2, 3, 4, 5]),
                 listing_views=0,
                 is_furnished=choice([False, True]),
                 square_footage=choice([10, 30, 40]) * choice([50, 75, 100]),
