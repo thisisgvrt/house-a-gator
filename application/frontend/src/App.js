@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, withRouter, NavLink } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/House-a-Gator.css';
@@ -30,25 +30,38 @@ const App = ({ isLoggedIn, dispatch }) => {
   const [listings, setListings] = React.useState([]);
 
   const handleLogout = () => {
-    dispatch(setIsLoggedIn(false));
+    axios.delete("/api/session")
+      .then(() => {
+        console.log("logout successful")
+        dispatch(setIsLoggedIn(false));
+      })
+      .catch(e => "error loading the list listing" + e)
+  }
+
+  const checkLogin = () => {
+    axios.get("/api/session")
+      .then(() => {
+        console.log("auth check successful")
+        dispatch(setIsLoggedIn(true));
+      })
+      .catch(e => "error loading the list listing" + e)
   }
   const fetchListings = () => {
     axios.get(`/api/listings?query=${searchTerm}` + (listingType !== "" ? `&listing_type=${listingType}` : ""))
       .then((res) => {
-
         setListings(res.data);
-
       })
       .catch(e => "error loading the list listing" + e)
   }
 
   useEffect(async () => {
     fetchListings();
+    checkLogin();
   }, []);
 
   return (
 
-    <Router>
+    <Router forceRefresh={true}>
 
       <div class="alert alert-light top-banner d-flex justify-content-center align-items-center">
         <p className="font-weight-bold text-uppercase text-muted" style={{ "margin-top": "0.5rem", "margin-bottom": "0.5rem" }}>
@@ -98,8 +111,7 @@ const App = ({ isLoggedIn, dispatch }) => {
             )}
             {isLoggedIn && (
               <li class="nav-item">
-
-                <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/" onClick={handleLogout}>Logout</NavLink>
+                <a className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" href="#" onClick={handleLogout}>Logout</a>
               </li>
             )}
           </ul>
