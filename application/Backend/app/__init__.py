@@ -9,10 +9,11 @@ from flask_login import LoginManager
 
 
 app = Flask(__name__)
-CORS(app)
+app.url_map.strict_slashes = False
+CORS(app, supports_credentials=True)
 ma = Marshmallow(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost:3306/house-a-gator'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@database:3306/house-a-gator'
 
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

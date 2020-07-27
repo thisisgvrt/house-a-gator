@@ -150,6 +150,7 @@ def populate_listings(num_listings):
             Listing(
                 title=listing_info[idx]["title"],
                 description=listing_info[idx]["description"],
+                for_rent_flag=choice([True, False]),
                 building_number=choice(["#", "No.", ""]) + str(randint(0, 100)),
                 apartment=choice(["Sofi", "Aragon", "Northpoint", "Southpoint", ""]),
                 street_name=fake.street_name(),

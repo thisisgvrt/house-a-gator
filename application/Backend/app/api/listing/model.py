@@ -30,6 +30,7 @@ class Listing(CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
+    for_rent_flag = db.Column(db.Boolean, nullable=False)
     building_number = db.Column(db.String(10), nullable=True)
     apartment = db.Column(db.String(50), nullable=True)
     street_name = db.Column(db.String(50), nullable=False) 
