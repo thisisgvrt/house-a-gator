@@ -5,14 +5,16 @@ from app.database import db
 from flask_marshmallow import Marshmallow
 from flask_login import LoginManager
 
+
+
+
 app = Flask(__name__)
 CORS(app)
 ma = Marshmallow(app)
 
-# mysql+mysqlconnector://<user>:<password>@<host>[:<port>]/<dbname>
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "mysql+mysqlconnector://root:password@database:3306/house-a-gator"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost:3306/house-a-gator'
+
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "SuperSecretKey"
 app.config["REMEMBER_COOKIE_DURATION"] = datetime.timedelta(minutes=1)

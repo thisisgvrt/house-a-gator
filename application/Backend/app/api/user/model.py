@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(255))
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20))
+    listing = db.relationship('Listing', back_populates="luser")
 
     def __init__(self, email, password, first_name, last_name):
         self.email = email
