@@ -20,10 +20,10 @@ import Homepage from "./pages/HomePage";
 import signup from "./pages/signup";
 import listingDetail from "./pages/ListingDetail";
 import {
-  
+
   setIsLoggedIn,
 } from "./redux/actions/userActions";
-const App = ({isLoggedIn, dispatch}) => {
+const App = ({ isLoggedIn, dispatch }) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [listingType, setListingType] = React.useState("");
@@ -33,11 +33,11 @@ const App = ({isLoggedIn, dispatch}) => {
     dispatch(setIsLoggedIn(false));
   }
   const fetchListings = () => {
-    axios.get(`/api/listings?query=${searchTerm}`+ (listingType !== "" ? `&listing_type=${listingType}`:""))
+    axios.get(`/api/listings?query=${searchTerm}` + (listingType !== "" ? `&listing_type=${listingType}` : ""))
       .then((res) => {
 
         setListings(res.data);
-        
+
       })
       .catch(e => "error loading the list listing" + e)
   }
@@ -47,18 +47,22 @@ const App = ({isLoggedIn, dispatch}) => {
   }, []);
 
   return (
- 
- <Router>
 
-         <h6 class="text-center">   SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only</h6>
+    <Router>
+
+      <div class="alert alert-light top-banner d-flex justify-content-center align-items-center">
+        <p className="font-weight-bold text-uppercase text-muted" style={{ "margin-top": "0.5rem", "margin-bottom": "0.5rem" }}>
+          SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only
+          </p>
+      </div>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)} alt="Logo" />
         </a>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo03">
+          <ul className="navbar-nav d-flex w-40 justify-content-between">
             <li class="nav-item active">
               <a class="nav-link logo" href="/">House-a-Gator</a>
             </li>
@@ -75,11 +79,8 @@ const App = ({isLoggedIn, dispatch}) => {
                 <button class="btn btn-outline-success" type="button" onClick={fetchListings} >Search</button>
               </form>
             </li>
-
-            {/* <li class="ml-sm-5 nav-item">
-              <NavLink exact className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/">Listings</NavLink>
-            </li> */}
-           
+          </ul>
+          <ul className="navbar-nav d-flex justify-content-between" style={{ "width": "30em" }}>
             <li class="nav-item">
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
             </li>
@@ -87,25 +88,25 @@ const App = ({isLoggedIn, dispatch}) => {
               <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
             </li>
             {!isLoggedIn && (
-            <li class="nav-item">
-              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">Sign-in</NavLink>
-            </li>)}
-             {!isLoggedIn && (
-             <li class="nav-item">
-             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">Sign-up</NavLink>
-           </li>
+              <li class="nav-item">
+                <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">Sign-in</NavLink>
+              </li>)}
+            {!isLoggedIn && (
+              <li class="nav-item">
+                <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">Sign-up</NavLink>
+              </li>
             )}
             {isLoggedIn && (
-                 <li class="nav-item">
-                   
-                 <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/" onClick={handleLogout}>Logout</NavLink>
-               </li>
+              <li class="nav-item">
+
+                <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/" onClick={handleLogout}>Logout</NavLink>
+              </li>
             )}
           </ul>
 
         </div>
       </nav>
-       
+
       <Switch>
         <Route path="/About-us" component={Aboutus} />
         <Route path="/login" component={login} />
@@ -113,7 +114,7 @@ const App = ({isLoggedIn, dispatch}) => {
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route path="/signup" component={signup} />
         <Route exact path="/" render={(props) => <Homepage listings={listings} />} />
-        <Route exact path='/listingDetail' component={listingDetail}/> 
+        <Route exact path='/listingDetail' component={listingDetail} />
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
