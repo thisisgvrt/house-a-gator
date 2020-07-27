@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, withRouter, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, match, NavLink } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/House-a-Gator.css';
@@ -18,7 +18,7 @@ import ashwini from "./pages/profile/ashwini";
 import henry from "./pages/profile/henry";
 import Homepage from "./pages/HomePage";
 import signup from "./pages/signup";
-import listingDetail from "./pages/ListingDetail";
+import ListingDetail from "./pages/ListingDetail";
 import {
   setIsLoggedIn,
 } from "./redux/actions/userActions";
@@ -140,7 +140,7 @@ const App = ({ isLoggedIn, dispatch }) => {
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route path="/signup" component={signup} />
         <Route exact path="/" render={(props) => <Homepage listings={listings} />} />
-        <Route exact path='/listingDetail' component={listingDetail} />
+        <Route path='/listingDetail/:listingId' render={(props) => <ListingDetail {...props} listings={listings} isLoggedIn={isLoggedIn} />} />
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
