@@ -1,0 +1,78 @@
+.signin-text {
+    font-size: medium;
+
+    float: right;
+}
+
+/*
+.form-inline {
+    margin-right: auto;
+}
+*/
+
+
+.signup-container {
+    background-color: gainsboro;
+    width: 500px;
+    margin: 0 auto;
+    padding: 0 auto;
+    
+    text-align: center;
+    display: inline-block;
+    
+    
+
+}
+
+.termscondition-checkbox {
+    margin-left: 2.2%;
+}
+
+.signup-label {
+    margin-top: 0%;
+    margin-bottom: 20%;
+}
+
+/*
+.container {
+}
+*/
+
+.signup-header {
+    margin-top: 2%;
+    font-size: xx-large;
+    color: blue;
+    margin-bottom: 5%;
+}
+
+.input-info {
+    max-width: 80%;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+}
+
+.submit-button {
+    margin-bottom: 5%;
+    width: 90%;
+    /* height: 90%; */
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.input-info2 {
+    max-width: 100%;
+}
+
+/*
+.searchbar {
+    max-width: 100%;
+}
+*/

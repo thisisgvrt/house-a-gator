@@ -14,7 +14,7 @@ const fiona = () => {
                     </div>
 
                     <div class="profile-thumb-block">
-                        <img class="profile-card-3 img" src={require(`../../images/fiona.jpg`)} alt="" class="" />
+                        <img class="profile-card-3 img" src={require(`../../images/fiona.jpg`)} alt="" />
                     </div>
 
                     <hr></hr>

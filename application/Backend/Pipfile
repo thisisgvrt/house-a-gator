@@ -24,6 +24,9 @@ googlemaps = "*"
 black = "*"
 flask-cors = "*"
 mysql-connector-python = "*"
+flask-login = "*"
+flask-api = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"
