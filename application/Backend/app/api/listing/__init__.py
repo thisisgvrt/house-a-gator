@@ -78,7 +78,9 @@ def get_listings_route():
     listing_type = request.args.get('listing_type',None)
     listing_category = request.args.get('listing_category',None)
     distance = request.args.get('distance',None)
+    
     listing_status = request.args.get('listing_status','Verified')
+    listing_status_filter = ListingStatus.status_string.like(listing_status)
     
     if user is not None:
         if user == str(current_user.id):
@@ -100,6 +102,8 @@ def get_listings_route():
     if distance is not None:
         distance_filter = Listing.distance.__le__(int(distance))
         filters.append(distance_filter)
+
+    filters.append(listing_status_filter)
 
     return listings_schema.jsonify(Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(and_(*filters)).all())
 
