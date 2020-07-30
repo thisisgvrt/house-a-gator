@@ -6,6 +6,8 @@ from sqlalchemy import and_, exc
 from app.api.listing.model import Listing, Media, ListingStatus, ListingType
 
 from distutils.util import strtobool
+from random import randint
+
 from app.database import db
 from flask_api import status
 
@@ -71,26 +73,39 @@ detailed_listing_schema = ListingDetailedSchema()
 
 @listing_page.route('/', methods=['GET'])
 def get_listings_route():
-        user = request.args.get('user', None)
-        query_string = request.args.get('query','')
-        query_filter = Listing.title.ilike(f'%{query_string}%')
-        listing_type = request.args.get('listing_type',None)
-        listing_status = request.args.get('listing_status','Verified')
-        listing_status_filter = ListingStatus.status_string.like(listing_status)
-        cur_user = str(current_user.id)
-        if user is not None:
-            if user == str(current_user.id):
-                filtered_result_set = Listing.query.filter_by(listing_user=user).all()
-            else:
-                return jsonify({"403": "requesting user not logged in"}), status.HTTP_403_FORBIDDEN
-        elif listing_type is None:
-            filters = (and_(query_filter, listing_status_filter))
-            filtered_result_set = Listing.query.join(Listing.lstatus).filter(filters).all()
+    user = request.args.get('user', None)
+    query_string = request.args.get('query','')
+    listing_type = request.args.get('listing_type',None)
+    listing_category = request.args.get('listing_category',None)
+    distance = request.args.get('distance',None)
+    
+    listing_status = request.args.get('listing_status','Verified')
+    listing_status_filter = ListingStatus.status_string.like(listing_status)
+    
+    if user is not None:
+        if user == str(current_user.id):
+            filtered_result_set = Listing.query.filter_by(listing_user=user).all()
         else:
-            listing_type_filter = ListingType.type_string.like(listing_type)
-            filters = (and_(query_filter, listing_type_filter, listing_status_filter))
-            filtered_result_set = Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(filters).all()
-        return listings_schema.jsonify(filtered_result_set)
+            return jsonify({"403": "requesting user not logged in"}), status.HTTP_403_FORBIDDEN
+
+    filters = []
+
+    if query_string != '':
+        query_filter = Listing.title.ilike(f'%{query_string}%')
+        filters.append(query_filter) 
+    if listing_type is not None:
+        listing_type_filter = Listing.for_rent_flag.is_((strtobool(listing_type) == 1))
+        filters.append(listing_type_filter)
+    if listing_category is not None:
+        listing_category_filter = ListingType.type_string.like(listing_category)
+        filters.append(listing_category_filter)
+    if distance is not None:
+        distance_filter = Listing.distance.__le__(int(distance))
+        filters.append(distance_filter)
+
+    filters.append(listing_status_filter)
+
+    return listings_schema.jsonify(Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(and_(*filters)).all())
 
 # Get listing by id
 @listing_page.route('/<int:listing_id>', methods=['GET'])
@@ -108,38 +123,40 @@ def listing_by_id_route(listing_id):
 @listing_page.route('/', methods=['POST'])
 @login_required
 def add_listings_route():
+    building_number = request.json.get('building_number')
+    apartment = request.json.get('apartment')
+    city = request.json.get('city')
+    zip_code = request.json.get('zip_code')
+    is_furnished = request.json.get('is_furnished', False);
+    pet_policy = request.json.get('pet_policy', False)
+    smoking_policy = request.json.get('smoking_policy', False)
     try:
         title = request.json['title']
         description = request.json['description']
-        building_number = request.json['building_number']
-        apartment = request.json['apartment']
+        for_rent_flag = request.json['for_rent_flag']
         street_name = request.json['street_name']
-        city = request.json['city']
-        zip_code = request.json['zip_code']
         listing_price = request.json['listing_price']
         listing_type = request.json['listing_type']
         square_footage = request.json['square_footage']
         num_baths = request.json['num_baths']
         num_beds = request.json['num_beds']
         num_parking_spots = request.json['num_parking_spots']
-        is_furnished = strtobool(request.json['is_furnished'].lower())
-        pet_policy = strtobool(request.json['pet_policy'].lower())
-        smoking_policy = strtobool(request.json['smoking_policy'].lower())
         media = request.json['media']
     except (ValueError, KeyError):
         return jsonify({'error' : 'unacceptable data'}), status.HTTP_406_NOT_ACCEPTABLE
     # add new listing to Listings Model
-    new_listing = Listing(title=title, description=description, building_number=building_number, 
+    new_listing = Listing(title=title, description=description, for_rent_flag= for_rent_flag, building_number=building_number, 
         apartment=apartment, street_name=street_name, city=city, state='California',
         zip_code=zip_code, country='USA', listing_price=listing_price, 
         listing_status='1', listing_type=listing_type,
         listing_views='0', is_furnished=is_furnished, square_footage=square_footage,
         num_baths=num_baths, num_beds=num_beds, num_parking_spots=num_parking_spots,
-        pet_policy=pet_policy, smoking_policy=smoking_policy, listing_user=current_user.id)
+        pet_policy=pet_policy, smoking_policy=smoking_policy, listing_user=current_user.id, distance=randint(0,100))
     db.session.add(new_listing)
     try:
         db.session.commit()
-    except exc.DatabaseError:
+    except exc.DatabaseError as e:
+        print(e)
         db.session.rollback()
         return jsonify({'406' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
     # add new media to Media Model
@@ -151,7 +168,7 @@ def add_listings_route():
         db.session.add(new_listing_media)
         media_base64 = media_item.get('media_file_b64')
         # credit: https://jdhao.github.io/2020/03/17/base64_opencv_pil_image_conversion/
-        im_bytes = base64.b64decode(media_base64)
+        im_bytes = base64.b64decode(media_base64.split(",")[1])
         image_file = BytesIO(im_bytes)
         try:
             img = Image.open(image_file)
