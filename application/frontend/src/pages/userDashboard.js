@@ -11,21 +11,21 @@ const UserDashBoard = ({dispatch }) => {
         <div class="row">
         <div class="card-deck">
   <div class="card">
-    <img src="https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="..."/>
+    <img src="/media?file_name=Apartments.jpg" class="card-img-top" alt="..."/>
     <div class="card-body">
       <h5 class="card-title">Listing title</h5>
       <p class="card-text">Listing Description</p>
     </div>
   </div>
   <div class="card">
-    <img src="https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="..."/>
+    <img src="/media?file_name=Apartments.jpg" class="card-img-top" alt="..."/>
     <div class="card-body">
       <h5 class="card-title">Listing title</h5>
       <p class="card-text">Listing Description</p>
     </div>
   </div>
   <div class="card">
-    <img src="https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="..."/>
+    <img src="/media?file_name=Apartments.jpg" class="card-img-top" alt="..."/>
     <div class="card-body">
       <h5 class="card-title">Listing title</h5>
       <p class="card-text">Listing Description</p>
@@ -73,8 +73,6 @@ const UserDashBoard = ({dispatch }) => {
 const mapStateToProps = (state) => {
     return {
      
-     
-  
     };
   };
   
