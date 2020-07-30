@@ -147,7 +147,7 @@ const App = ({ isLoggedIn, dispatch }) => {
         <Route path="/signup" component={signup} />
         <Route exact path="/" render={(props) => <Homepage {...props} listings={listings} />} />
         <Route path='/listingDetail/:listingId' render={(props) => <ListingDetail {...props} listings={listings} isLoggedIn={isLoggedIn} />} />
-        <Route  path='/userDashBoard' component={userDashBoard}/> 
+        <Route path='/userDashBoard' component={userDashBoard}/> 
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />
