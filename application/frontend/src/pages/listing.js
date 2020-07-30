@@ -1,8 +1,10 @@
 
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Listing() {
+    const history = useHistory();
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [address, setAddress] = React.useState("");
@@ -15,21 +17,7 @@ function Listing() {
     const [parkingSpots, setParkingSpots] = React.useState("");
     const [file, setFile] = React.useState("");
     const [media, setMedia] = React.useState([]);
-    const handleListing2 = (e) => {
-        console.log({
-            title,
-            description,
-            type,
-            address,
-            price,
-            beds,
-            baths,
-            category,
-            squareFoot,
-            parkingSpots,
-            media
-        })
-    }
+
     const handleListing = () => {
         axios
         .post("/api/listings", {
@@ -48,7 +36,8 @@ function Listing() {
           withCredentials: true
         })
         .then( () => {
-          console.log("login was successful");
+          alert("Listing has been created, it would be approved in 24 hours")
+          setTimeout(() => history.push('/'), 1500);
         }).catch((error) => {
           console.error(error);
         })
