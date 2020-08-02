@@ -69,9 +69,7 @@ const Login = ({
         </div>
 
         <li className="list-inline-item"><a className="mt-5 mb-3 " href="/signup">Forgot Password?</a></li>
-        <div>
-          {isErrorMessage && <b> The Email and/or Password you specified are not correct</b>}
-        </div>
+
 
 
       </form>
