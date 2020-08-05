@@ -32,14 +32,12 @@ const fiona = () => {
                         <div>
                             <a href="https://github.com/fsenchyna" target="_tab"><i class="fab fa-github-square"></i></a>
                             <a href="https://www.linkedin.com/in/fiona-senchyna-17b81311a/" target="_tab"><i class="fab fa-linkedin"></i></a>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+    //henry
     )
 }
-
 export default fiona;
