@@ -107,12 +107,9 @@ const App = ({ isLoggedIn, dispatch }) => {
                   <option value={10}>Within 10 miles</option>
                   <option value={50}>Within 50 miles</option>
                 </select>
-                <button class="btn btn-outline-success"style={{"color":"white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
-
-</button>
                 <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
-
-              
+                <button class="btn btn-success"style={{"color":"white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
+                </button>
               </form>
             </li>
           </ul>

@@ -27,10 +27,14 @@ from flask_api import status
 from app.api.user.model import User
 from app.api.user import user_schema
 
-
 listing_page = Blueprint('listing_page', __name__)
 
 ma = Marshmallow()
+
+class UserSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')
 
 class MediaSchema(ma.SQLAlchemySchema):
     class Meta:
@@ -53,18 +57,19 @@ class ListingSchema(ma.SQLAlchemySchema):
     lstatus = ma.Nested(ListingStatusSchema)
     class Meta:
         model = Listing
-        fields = ('title', 'description', 'listing_price', 'media', 'ltype', 'lstatus', 'num_baths', 'num_beds')
+        fields = ('id','title', 'description', 'listing_price', 'media', 'ltype', 'lstatus', 'num_baths', 'num_beds')
 
 # listing in more detail
 class ListingDetailedSchema(ma.SQLAlchemySchema):
     media = ma.List(ma.Nested(MediaSchema))
     ltype = ma.Nested(ListingTypeSchema)
     lstatus = ma.Nested(ListingStatusSchema)
+    luser = ma.Nested(UserSchema)
     class Meta:
         model = Listing
         fields = ('title', 'description', 'building_number', 'apartment', 'street_name', 'city', 'zip_code', 
         'listing_price', 'is_furnished', 'square_footage', 'num_baths', 'num_beds', 'pet_policy', 
-        'smoking_policy', 'media', 'ltype')
+        'smoking_policy', 'media', 'ltype', 'luser')
 
 listing_schema = ListingSchema()
 listings_schema = ListingSchema(many=True)
