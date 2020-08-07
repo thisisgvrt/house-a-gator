@@ -1,3 +1,16 @@
+""" Class: CSC648/848--01 Summer 2020
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/api/__init__.py
+
+Description: Outlines all of the apis in the application.
+
+"""
+
 from flask import send_file, request
 from app import app
 

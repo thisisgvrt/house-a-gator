@@ -1,3 +1,17 @@
+""" Class: CSC648/848--01 Summer 2020
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/database.py
+
+Description: Database is declared here, and helper methods for the database are
+described. 
+
+"""
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

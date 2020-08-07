@@ -1,8 +1,22 @@
+""" Class: CSC648/848--01 Summer 2020
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: model.py
+
+Description: Declares Models for tables in database related to listings on the website.
+This includes the ListingStatus, ListingType, Media, and Listing tables.
+
+"""
 
 from app.database import db, CRUDMixin 
 from app.api.user.model import User
 
 class ListingStatus(db.Model):
+    "Describes whether listing has been verified."
     __tablename__ = 'listing_status'
     id = db.Column(db.Integer, primary_key=True)
     status_string = db.Column(db.String(10), nullable=False)
@@ -18,6 +32,7 @@ class ListingType(db.Model):
         return '<ListingType #%s:%r>' % (self.id, self.type_string)
 
 class Media(db.Model):
+    "Describes names and file paths of media related to listings."
     __tablename__ = 'listing_media'
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey('listing.id'), nullable=False)
@@ -26,6 +41,7 @@ class Media(db.Model):
     listing = db.relationship('Listing', back_populates="media")
 
 class Listing(CRUDMixin, db.Model):
+    "Describes listings."
     __tablename__ = 'listing'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
