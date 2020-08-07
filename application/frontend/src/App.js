@@ -107,11 +107,12 @@ const App = ({ isLoggedIn, dispatch }) => {
                   <option value={10}>Within 10 miles</option>
                   <option value={50}>Within 50 miles</option>
                 </select>
-                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
-
                 <button class="btn btn-outline-success"style={{"color":"white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
 
 </button>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
+
+              
               </form>
             </li>
           </ul>
@@ -120,7 +121,7 @@ const App = ({ isLoggedIn, dispatch }) => {
               <NavLink  className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
             </li>
             <li class="nav-item">
-              <NavLink   className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
+              <NavLink   className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post New Listing</NavLink>
             </li>
             {isLoggedIn && (
             <li class="nav-item">
