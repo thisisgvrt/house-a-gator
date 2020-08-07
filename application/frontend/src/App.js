@@ -72,10 +72,13 @@ const App = ({ isLoggedIn, dispatch }) => {
           SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only
           </p>
       </div>
+     
+
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        
         <a class="navbar-brand" href="/">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)} alt="Logo" />
         </a>
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo03">
@@ -84,10 +87,9 @@ const App = ({ isLoggedIn, dispatch }) => {
               <a class="nav-link logo" href="/">House-a-Gator</a>
             </li>
             <li class="ml-sm-4 mt-sm-2 nav-item">
-              <form class="form-inline nav-link-line-height">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
+              <form class="form-inline my-2 my-lg-0">
                 <select class="custom-select mr-sm-2" value={listingType} onChange={event => setListingType(event.target.value)} >
-                  <option selected value="">All Types</option>
+                  <option selected value="">Rent/Sell</option>
                   <option value="True">Rent</option>
                   <option value="False">Sell</option>
                 </select>
@@ -99,41 +101,46 @@ const App = ({ isLoggedIn, dispatch }) => {
                   <option value="Town Houses">Town Houses</option>
                 </select>
                 <select class="custom-select mr-sm-2" value={distance} onChange={event => setDistance(event.target.value)} >
-                  <option selected value="">Any distance from SFSU</option>
+                  <option selected value="">Distance from SFSU</option>
                   <option value={1}>Within 1 mile</option>
                   <option value={5}>Within 5 miles</option>
                   <option value={10}>Within 10 miles</option>
                   <option value={50}>Within 50 miles</option>
                 </select>
-                <button class="btn btn-outline-success" type="button" onClick={fetchListings} >Search</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
+
+                <button class="btn btn-outline-success"style={{"color":"white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
+
+</button>
               </form>
             </li>
           </ul>
           <ul className="navbar-nav d-flex justify-content-between" style={{ "width": "30em" }}>
+          <li class="nav-item">
+              <NavLink  className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
+            </li>
             <li class="nav-item">
-              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
+              <NavLink   className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post</NavLink>
             </li>
             {isLoggedIn && (
             <li class="nav-item">
-              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/userDashBoard">My DashBoard</NavLink>
+              <NavLink  className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/userDashBoard">My DashBoard</NavLink>
             </li>)}
             {!isLoggedIn && (
             <li class="nav-item">
-              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/Login">SignIn</NavLink>
+              <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/Login">SignIn</NavLink>
             </li>)}
              {!isLoggedIn && (
              <li class="nav-item">
-             <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/signup">SignUp</NavLink>
+             <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/signup">SignUp</NavLink>
            </li>
             )}
             {isLoggedIn && (
               <li class="nav-item">
-                <a className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" href="#" onClick={handleLogout}>Logout</a>
+                <a className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" href="#" onClick={handleLogout}>Logout</a>
               </li>
             )}
-             <li class="nav-item">
-              <NavLink className="nav-link nav-link-line-height" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
-            </li>
+            
           </ul>
 
         </div>
