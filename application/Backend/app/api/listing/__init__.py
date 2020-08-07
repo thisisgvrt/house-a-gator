@@ -85,6 +85,7 @@ def get_listings_route():
     if user is not None:
         if user == str(current_user.id):
             filtered_result_set = Listing.query.filter_by(listing_user=user).all()
+            return listings_schema.jsonify(filtered_result_set)
         else:
             return jsonify({"403": "requesting user not logged in"}), status.HTTP_403_FORBIDDEN
 
