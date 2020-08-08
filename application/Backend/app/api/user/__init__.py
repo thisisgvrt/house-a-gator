@@ -1,3 +1,16 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty.
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/api/user/__init__.py
+
+Description: Contains method and route for user sign-up
+
+"""
+
 from flask import Flask, Blueprint, request, jsonify, json, session, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import (
@@ -20,17 +33,17 @@ ma = Marshmallow()
 
 
 class UserSchema(ma.Schema):
+    "Serializes User model."
     class Meta:
         fields = ("id", "email", "first_name", "last_name")
 
 
 user_schema = UserSchema()
 
-"Route for Sign-Up"
-
 
 @user_page.route("/", methods=["POST"])
 def signup_post():
+    "Route for Sign-Up."
     email = request.json.get("email")
     password = request.json.get("password")
     first_name = request.json.get("first_name")

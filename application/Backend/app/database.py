@@ -1,8 +1,23 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/database.py
+
+Description: The Database is declared here, and helper methods for the database are
+listed. 
+
+"""
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 class CRUDMixin(object):
+    "provides methods for models in the database"
     __table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer, primary_key=True)

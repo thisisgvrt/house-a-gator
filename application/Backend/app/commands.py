@@ -1,3 +1,16 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/commands.py
+
+Description: Contains methods to populate the database with seed data.
+
+"""
+
 from faker import Faker
 from random import choice, randint
 import click

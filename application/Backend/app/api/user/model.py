@@ -1,8 +1,22 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/api/user/model.py
+
+Description: Contains model for the user table in the database
+
+"""
+
 from flask_login import UserMixin
 from app.database import db, CRUDMixin
 
 
 class User(UserMixin, db.Model):
+    "Contains information related to users."
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255))

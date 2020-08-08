@@ -1,3 +1,16 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty.
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/api/messaging/__init__.py
+
+Description:  Contains methods for message creation and sending
+
+"""
+
 from flask import Blueprint, request
 from flask_marshmallow import Marshmallow
 from flask_login import (
@@ -29,6 +42,7 @@ class ListingSchema(ma.SQLAlchemySchema):
         fields = ('id', 'title')
 
 class MessageSchema(ma.SQLAlchemySchema):
+    "Serializes Message model."
     sender = ma.Nested(UserSchema)
     listing = ma.Nested(ListingSchema)
     class Meta:
@@ -41,6 +55,7 @@ messages_schema = MessageSchema(many=True)
 @messaging_page.route("/", methods=["POST"])
 @login_required
 def post_message():
+    "Post a message."
     message_text = request.json["message_text"]
     receiver_id = request.json["receiver_id"]
     listing_id = request.json["listing_id"]
@@ -52,5 +67,6 @@ def post_message():
 @messaging_page.route("/", methods=["GET"])
 @login_required
 def get_messages_route():
+    "Get all messages sent to a specified user."
     print(Message.query.filter(Message.receiver_id == current_user.id).all())
     return messages_schema.jsonify(Message.query.filter(Message.receiver_id == current_user.id).all()), status.HTTP_200_OK
