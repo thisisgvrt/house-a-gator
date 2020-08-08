@@ -1,4 +1,4 @@
-""" Class: CSC648/848--01 Summer 2020
+""" Class: CSC648/848--01 Summer 2020, Team 2
 Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
 for SFSU students and faculty
 
@@ -7,7 +7,7 @@ Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
 
 File: __init__.py
 
-Description: Describes methods related to listings, this includes:
+Description: Contains methods related to listings, this includes:
 returning all verified listings, 
 returning all verified listings that match a user's search input, 
 returning a listing by its listing id,
@@ -51,25 +51,25 @@ listing_page = Blueprint('listing_page', __name__)
 ma = Marshmallow()
 
 class MediaSchema(ma.SQLAlchemySchema):
-    "Serializes Media model"
+    "Serializes Media model."
     class Meta:
         model = Media
         fields = ('id', 'media_title', 'media_path')
 
 class ListingStatusSchema(ma.SQLAlchemySchema):
-    "Serializes ListingStatus model"
+    "Serializes ListingStatus model."
     class Meta:
         model = Media
         fields = ('id', 'status_string')
 
 class ListingTypeSchema(ma.SQLAlchemySchema):
-    "Serializes ListingType model"
+    "Serializes ListingType model."
     class Meta:
         model = Media
         fields = ('id', 'type_string')
 
 class ListingSchema(ma.SQLAlchemySchema):
-    "Serializes Listing model. Dumps only the most relevant information on listing"
+    "Serializes Listing model. Gives only the most relevant listing information."
     media = ma.List(ma.Nested(MediaSchema))
     ltype = ma.Nested(ListingTypeSchema)
     lstatus = ma.Nested(ListingStatusSchema)
@@ -79,7 +79,7 @@ class ListingSchema(ma.SQLAlchemySchema):
 
 
 class ListingDetailedSchema(ma.SQLAlchemySchema):
-    "Serializes Listing model. Dumps all information on listing"
+    "Serializes Listing model. Gives all listing information."
     media = ma.List(ma.Nested(MediaSchema))
     ltype = ma.Nested(ListingTypeSchema)
     lstatus = ma.Nested(ListingStatusSchema)
@@ -96,7 +96,7 @@ detailed_listing_schema = ListingDetailedSchema()
 
 @listing_page.route('/', methods=['GET'])
 def get_listings_route():
-    "Returns listings filtered by either user input or user id"
+    "Returns listings filtered by either user input or user id."
     user = request.args.get('user', None)
     query_string = request.args.get('query','')
     listing_type = request.args.get('listing_type',None)
@@ -134,7 +134,7 @@ def get_listings_route():
 
 @listing_page.route('/<int:listing_id>', methods=['GET'])
 def listing_by_id_route(listing_id):
-    "Returns listing based on given listing id"
+    "Returns listing based on given listing id."
     listing = Listing.query.get(listing_id)
     if listing is None:
         return jsonify({"404": "listing does not exist"}), status.HTTP_404_NOT_FOUND
@@ -148,7 +148,7 @@ def listing_by_id_route(listing_id):
 @listing_page.route('/', methods=['POST'])
 @login_required
 def add_listings_route():
-    "Uploads new listing to database"
+    "Uploads new listing to database."
     building_number = request.json.get('building_number')
     apartment = request.json.get('apartment')
     city = request.json.get('city')

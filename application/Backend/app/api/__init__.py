@@ -1,4 +1,4 @@
-""" Class: CSC648/848--01 Summer 2020
+""" Class: CSC648/848--01 Summer 2020, Team 2
 Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
 for SFSU students and faculty
 
