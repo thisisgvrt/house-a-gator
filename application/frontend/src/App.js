@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, match, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+import ReactGA from 'react-ga';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/House-a-Gator.css';
@@ -25,6 +28,14 @@ import {
   setIsLoggedIn,
 } from "./redux/actions/userActions";
 
+ReactGA.initialize('UA-174969069-1', {
+  debug: true,
+  titleCase: false,
+  gaOptions: {
+    siteSpeedSampleRate: 100
+  }
+});
+
 const App = ({ isLoggedIn, dispatch }) => {
 
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -32,6 +43,12 @@ const App = ({ isLoggedIn, dispatch }) => {
   const [listingCategory, setListingCategory] = React.useState("");
   const [distance, setDistance] = React.useState("");
   const [listings, setListings] = React.useState([]);
+
+  const history = createBrowserHistory();
+
+  useEffect(() => {
+    ReactGA.pageview(history.location.pathname);
+  }, [history]);
 
   const handleLogout = () => {
     axios.delete("/api/session")
@@ -65,20 +82,20 @@ const App = ({ isLoggedIn, dispatch }) => {
 
   return (
 
-    <Router forceRefresh={true}>
+    <Router forceRefresh={true} history={history}>
 
       <div class="alert alert-light top-banner d-flex justify-content-center align-items-center">
         <p className="font-weight-bold text-uppercase text-muted" style={{ "margin-top": "0.5rem", "margin-bottom": "0.5rem" }}>
           SFSU Software Engineering Project CSC 648-848, Summer 2020. For Demonstration Only
           </p>
       </div>
-     
+
 
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-lg">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
+
         <a class="navbar-brand" href="/">    <img src={require(`./images/house-a-gator-v2-transparent 1.png`)} alt="Logo" />
         </a>
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo03">
@@ -107,41 +124,38 @@ const App = ({ isLoggedIn, dispatch }) => {
                   <option value={10}>Within 10 miles</option>
                   <option value={50}>Within 50 miles</option>
                 </select>
-                <button class="btn btn-outline-success"style={{"color":"white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
-
-</button>
                 <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
-
-              
+                <button class="btn btn-success" style={{ "color": "white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
+                </button>
               </form>
             </li>
           </ul>
           <ul className="navbar-nav d-flex justify-content-between" style={{ "width": "30em" }}>
-          <li class="nav-item">
-              <NavLink  className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
+            <li class="nav-item">
+              <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/About-us">About-us</NavLink>
             </li>
             <li class="nav-item">
-              <NavLink   className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post New Listing</NavLink>
+              <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/listingPage">Post New Listing</NavLink>
             </li>
             {isLoggedIn && (
-            <li class="nav-item">
-              <NavLink  className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/userDashBoard">My DashBoard</NavLink>
-            </li>)}
+              <li class="nav-item">
+                <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/userDashBoard">My DashBoard</NavLink>
+              </li>)}
             {!isLoggedIn && (
-            <li class="nav-item">
-              <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/Login">SignIn</NavLink>
-            </li>)}
-             {!isLoggedIn && (
-             <li class="nav-item">
-             <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/signup">SignUp</NavLink>
-           </li>
+              <li class="nav-item">
+                <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/Login">SignIn</NavLink>
+              </li>)}
+            {!isLoggedIn && (
+              <li class="nav-item">
+                <NavLink className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" to="/signup">SignUp</NavLink>
+              </li>
             )}
             {isLoggedIn && (
               <li class="nav-item">
                 <a className="navbar-brand mb-0 h1" activeClassName="active nav-link nav-link-line-height" href="#" onClick={handleLogout}>Logout</a>
               </li>
             )}
-            
+
           </ul>
 
         </div>
@@ -155,7 +169,7 @@ const App = ({ isLoggedIn, dispatch }) => {
         <Route path="/signup" component={signup} />
         <Route exact path="/" render={(props) => <Homepage {...props} listings={listings} />} />
         <Route path='/listingDetail/:listingId' render={(props) => <ListingDetail {...props} listings={listings} isLoggedIn={isLoggedIn} />} />
-        <Route path='/userDashBoard' component={userDashBoard}/> 
+        <Route path='/userDashBoard' component={userDashBoard} />
         <Route path="/swetha" component={swetha} />
         <Route path="/kevin" component={kevin} />
         <Route path="/ravi" component={ravi} />

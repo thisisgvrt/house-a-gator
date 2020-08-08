@@ -15,14 +15,12 @@ from app.api.listing.model import Listing
 from app.api.user import user_schema
 
 
-
-
 messaging_page = Blueprint("messaging_page", __name__)
 ma = Marshmallow()
 
 class UserSchema(ma.SQLAlchemySchema):
     class Meta:
-        model = Listing
+        model = User
         fields = ('id', 'first_name', 'last_name')
 
 class ListingSchema(ma.SQLAlchemySchema):
