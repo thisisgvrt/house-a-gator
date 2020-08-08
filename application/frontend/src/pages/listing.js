@@ -59,7 +59,10 @@ function Listing() {
             <form class="form-signin">
 
                 <h1 class="h3 mb-3 font-weight-normal">New Listing</h1>
+                <div>
+                <p class="text-right"  style={{ "font-weight": "bold" }}><span style={{ "color": "red" }}>*</span> fields are mandatory</p>
 
+                            </div>
                 <label style={{ "float": "left", "font-weight": "bold" }}>Title <span style={{ "color": "red" }}>*</span></label>
                 <div class="input-group mb-3">
                     <input type="text" onChange={(event) => setTitle(event.target.value)} class="form-control" placeholder="Two bed house with an amazing view"></input>

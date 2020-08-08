@@ -23,17 +23,31 @@ from app.database import db
 
 from app.api.user.model import User
 from app.api.messaging.model import Message
+from app.api.listing.model import Listing
 
 from app.api.user import user_schema
+
 
 messaging_page = Blueprint("messaging_page", __name__)
 ma = Marshmallow()
 
+class UserSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')
+
+class ListingSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Listing
+        fields = ('id', 'title')
+
 class MessageSchema(ma.SQLAlchemySchema):
     "Serializes Message model."
+    sender = ma.Nested(UserSchema)
+    listing = ma.Nested(ListingSchema)
     class Meta:
         model = Message
-        fields = ("id", "message_text")
+        fields = ("id", "message_text", "listing_id", "timestamp", "listing", "sender")
 
 message_schema = MessageSchema()
 messages_schema = MessageSchema(many=True)
@@ -54,4 +68,5 @@ def post_message():
 @login_required
 def get_messages_route():
     "Get all messages sent to a specified user."
+    print(Message.query.filter(Message.receiver_id == current_user.id).all())
     return messages_schema.jsonify(Message.query.filter(Message.receiver_id == current_user.id).all()), status.HTTP_200_OK

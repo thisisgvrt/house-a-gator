@@ -34,4 +34,4 @@ class Message(CRUDMixin, db.Model):
     message_text = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
-        return "<Message #%s:%r>" % (self.id, self.message_text)
+        return "<Message #%s:%r:%r:%r>" % (self.id, self.message_text, self.sender, self.listing)
