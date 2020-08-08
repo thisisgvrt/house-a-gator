@@ -1,3 +1,21 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: __init__.py
+
+Description: Contains methods related to listings, this includes:
+returning all verified listings, 
+returning all verified listings that match a user's search input, 
+returning a listing by its listing id,
+returning all listings uploaded by a user, and
+uploading a listing.  
+
+"""
+
 from flask import Blueprint, request, jsonify
 from flask_marshmallow import Marshmallow
 
@@ -11,12 +29,12 @@ from random import randint
 from app.database import db
 from flask_api import status
 
-#for file uploads
+
 import os 
-import base64 # decode base64 to image file
+import base64
 from io import BytesIO
 from PIL import Image
-UPLOAD_FOLDER = 'media/' # path to store images
+UPLOAD_FOLDER = 'media/'
 
 from flask_login import (
     login_required,
@@ -27,44 +45,54 @@ from flask_api import status
 from app.api.user.model import User
 from app.api.user import user_schema
 
-
 listing_page = Blueprint('listing_page', __name__)
 
 ma = Marshmallow()
 
+class UserSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')
+
 class MediaSchema(ma.SQLAlchemySchema):
+    "Serializes Media model."
     class Meta:
         model = Media
         fields = ('id', 'media_title', 'media_path')
 
 class ListingStatusSchema(ma.SQLAlchemySchema):
+    "Serializes ListingStatus model."
     class Meta:
         model = Media
         fields = ('id', 'status_string')
 
 class ListingTypeSchema(ma.SQLAlchemySchema):
+    "Serializes ListingType model."
     class Meta:
         model = Media
         fields = ('id', 'type_string')
 
 class ListingSchema(ma.SQLAlchemySchema):
+    "Serializes Listing model. Gives only the most relevant listing information."
     media = ma.List(ma.Nested(MediaSchema))
     ltype = ma.Nested(ListingTypeSchema)
     lstatus = ma.Nested(ListingStatusSchema)
     class Meta:
         model = Listing
-        fields = ('title', 'description', 'listing_price', 'media', 'ltype', 'lstatus', 'num_baths', 'num_beds')
+        fields = ('id','title', 'description', 'listing_price', 'media', 'ltype', 'lstatus', 'num_baths', 'num_beds')
 
-# listing in more detail
+
 class ListingDetailedSchema(ma.SQLAlchemySchema):
+    "Serializes Listing model. Gives all listing information."
     media = ma.List(ma.Nested(MediaSchema))
     ltype = ma.Nested(ListingTypeSchema)
     lstatus = ma.Nested(ListingStatusSchema)
+    luser = ma.Nested(UserSchema)
     class Meta:
         model = Listing
         fields = ('title', 'description', 'building_number', 'apartment', 'street_name', 'city', 'zip_code', 
         'listing_price', 'is_furnished', 'square_footage', 'num_baths', 'num_beds', 'pet_policy', 
-        'smoking_policy', 'media', 'ltype')
+        'smoking_policy', 'media', 'ltype', 'luser')
 
 listing_schema = ListingSchema()
 listings_schema = ListingSchema(many=True)
@@ -73,6 +101,7 @@ detailed_listing_schema = ListingDetailedSchema()
 
 @listing_page.route('/', methods=['GET'])
 def get_listings_route():
+    "Returns listings filtered by either user input or user id."
     user = request.args.get('user', None)
     query_string = request.args.get('query','')
     listing_type = request.args.get('listing_type',None)
@@ -108,9 +137,10 @@ def get_listings_route():
 
     return listings_schema.jsonify(Listing.query.join(Listing.lstatus).join(Listing.ltype).filter(and_(*filters)).all())
 
-# Get listing by id
+
 @listing_page.route('/<int:listing_id>', methods=['GET'])
 def listing_by_id_route(listing_id):
+    "Returns listing based on given listing id."
     listing = Listing.query.get(listing_id)
     if listing is None:
         return jsonify({"404": "listing does not exist"}), status.HTTP_404_NOT_FOUND
@@ -120,10 +150,11 @@ def listing_by_id_route(listing_id):
         return jsonify({"403": "listing is not verified"}), status.HTTP_403_FORBIDDEN
     return detailed_listing_schema.jsonify(listing), status.HTTP_200_OK
 
-# post listing
+
 @listing_page.route('/', methods=['POST'])
 @login_required
 def add_listings_route():
+    "Uploads new listing to database."
     building_number = request.json.get('building_number')
     apartment = request.json.get('apartment')
     city = request.json.get('city')
@@ -145,7 +176,7 @@ def add_listings_route():
         media = request.json['media']
     except (ValueError, KeyError):
         return jsonify({'error' : 'unacceptable data'}), status.HTTP_406_NOT_ACCEPTABLE
-    # add new listing to Listings Model
+
     new_listing = Listing(title=title, description=description, for_rent_flag= for_rent_flag, building_number=building_number, 
         apartment=apartment, street_name=street_name, city=city, state='California',
         zip_code=zip_code, country='USA', listing_price=listing_price, 
@@ -160,7 +191,7 @@ def add_listings_route():
         print(e)
         db.session.rollback()
         return jsonify({'406' : 'could not add listing to database'}), status.HTTP_406_NOT_ACCEPTABLE
-    # add new media to Media Model
+
     for media_item in media:
         media_title = media_item.get('media_title')
         media_path = str(new_listing.id) + '_' + media_item.get('media_path')
@@ -168,7 +199,7 @@ def add_listings_route():
             media_path=media_path)            
         db.session.add(new_listing_media)
         media_base64 = media_item.get('media_file_b64')
-        # credit: https://jdhao.github.io/2020/03/17/base64_opencv_pil_image_conversion/
+
         im_bytes = base64.b64decode(media_base64.split(",")[1])
         image_file = BytesIO(im_bytes)
         try:

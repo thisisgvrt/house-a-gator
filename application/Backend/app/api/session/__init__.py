@@ -1,3 +1,16 @@
+""" Class: CSC648/848--01 Summer 2020, Team 2
+Project: Create a WWW site to Buy/sell/rent apartments/housing exclusively
+for SFSU students and faculty
+
+Team Members: Raviteja Guttula, Swetha Govindu, Henry Meier, Kevin Zhou, 
+Troy Turner, Ashwini Uthirakumar, Fiona Senchyna
+
+File: ap/api/session/__init__.py
+
+Description: Contains methods and routes for user login and logout
+
+"""
+
 from flask import Flask, Blueprint, request, jsonify, json, session, Response
 from app.api.user.model import User
 from app.api.user import user_schema
@@ -17,6 +30,7 @@ session_page = Blueprint("session_page", __name__)
 
 @session_page.route("/", methods=["POST"])
 def create_session():
+    "User login."
     email = request.json["email"]
     password = request.json["password"]
     remember = request.json["remember"]
@@ -30,18 +44,17 @@ def create_session():
 
 @session_page.route("/", methods=["GET"])
 def get_session():
+    "User is already logged in."
     if current_user.is_authenticated:
         return user_schema.jsonify(current_user), status.HTTP_200_OK
     else:
         return "", status.HTTP_401_UNAUTHORIZED
 
 
-"Route for Logout"
-
-
 @session_page.route("/", methods=["DELETE"])
 @login_required
 def delete_session():
+    "User Logout."
     try:
         logout_user()
         return "", status.HTTP_204_NO_CONTENT
