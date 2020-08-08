@@ -38,13 +38,20 @@ ReactGA.initialize('UA-174969069-1', {
 
 const App = ({ isLoggedIn, dispatch }) => {
 
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState(null);
   const [listingType, setListingType] = React.useState("");
   const [listingCategory, setListingCategory] = React.useState("");
   const [distance, setDistance] = React.useState("");
   const [listings, setListings] = React.useState([]);
 
   const history = createBrowserHistory();
+
+  const searchTermRegex = /[^a-z\d]/i;
+  if(searchTermRegex.test(searchTerm) || setSearchTerm.length >= 40)
+  {
+    setSearchTerm("");
+    alert("Only alpha numeric characters, less than 40 characters is allowed");
+  }
 
   useEffect(() => {
     ReactGA.pageview(history.location.pathname);
@@ -67,9 +74,13 @@ const App = ({ isLoggedIn, dispatch }) => {
       })
       .catch(e => "error loading the list listing" + e)
   }
-  const fetchListings = () => {
-    axios.get(`/api/listings?query=${searchTerm}` + (listingType !== "" ? `&listing_type=${listingType}` : "") + (listingCategory !== "" ? `&listing_category=${listingCategory}` : "") + (distance !== "" ? `&distance=${distance}` : ""))
+
+  const fetchListings = (clearBanner) => {
+    axios.get(`/api/listings?query=${searchTerm === null ? "" : searchTerm}` + (listingType !== "" ? `&listing_type=${listingType}` : "") + (listingCategory !== "" ? `&listing_category=${listingCategory}` : "") + (distance !== "" ? `&distance=${distance}` : ""))
       .then((res) => {
+        if(clearBanner){
+          setSearchTerm("");
+        }
         setListings(res.data);
       })
       .catch(e => "error loading the list listing" + e)
@@ -124,8 +135,8 @@ const App = ({ isLoggedIn, dispatch }) => {
                   <option value={10}>Within 10 miles</option>
                   <option value={50}>Within 50 miles</option>
                 </select>
-                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} ></input>
-                <button class="btn btn-success" style={{ "color": "white", "font-weight": "bold" }} type="button" onClick={fetchListings} >Search
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} maxLength="40"></input>
+                <button class="btn btn-success" style={{ "color": "white", "font-weight": "bold" }} type="button" onClick={() => fetchListings(true)} >Search
                 </button>
               </form>
             </li>
@@ -167,7 +178,7 @@ const App = ({ isLoggedIn, dispatch }) => {
         <Route path="/listingPage" component={listingPage} />
         {/* <Route exact path="/" component={Homepage} /> */}
         <Route path="/signup" component={signup} />
-        <Route exact path="/" render={(props) => <Homepage {...props} listings={listings} />} />
+        <Route exact path="/" render={(props) => <Homepage {...props} listings={listings} searchTerm={searchTerm} />} />
         <Route path='/listingDetail/:listingId' render={(props) => <ListingDetail {...props} listings={listings} isLoggedIn={isLoggedIn} />} />
         <Route path='/userDashBoard' component={userDashBoard} />
         <Route path="/swetha" component={swetha} />
