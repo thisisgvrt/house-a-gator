@@ -39,7 +39,7 @@ function Listing() {
           alert("Listing has been created, it would be approved in 24 hours")
           setTimeout(() => history.push('/'), 1500);
         }).catch((error) => {
-          console.error(error);
+          alert("There was an issue creating listing with the provided information. Please check all fields");
         })
     }
     const toggleState = () => {

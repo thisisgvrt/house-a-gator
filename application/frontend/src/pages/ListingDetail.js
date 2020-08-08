@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from 'axios';
 
-const ListingDetail = ({ listings, isLoggedIn, match }) => {
+const ListingDetail = ({ match }) => {
   const listingId = parseInt(match.params.listingId);
   const [googlemapsrc, setGooglemapsrc] = React.useState("https://www.google.com/maps/embed/v1/place?key=AIzaSyCVhVpvSSY8K_A3BE5guzc_8yuYizR77Gw&q=sanbruno752 Glenview Dr,CA,94066");
   const [listingDetail, setListingDetail] = useState(null);
 
   const [message, setMessage] = useState("");
+
+  const [showMessageButton, setShowMessageButton] = useState(false);
 
   const fetchListingDetail = () => {
     axios.get(`/api/listings/${listingId}`)
@@ -22,14 +24,25 @@ const ListingDetail = ({ listings, isLoggedIn, match }) => {
       "message_text": message,
       "receiver_id": listingDetail.luser.id,
       "listing_id": listingId
-    }).then((res) => {
+    }).then(() => {
       alert("Message sent succesfully");
     })
     .catch(e => "Error sending message" + e)
   }
 
+  const checkLogin = () => {
+    axios.get("/api/session")
+      .then((response) => {
+        if (response.data.email.endsWith("@mail.sfsu.edu") || response.data.email.endsWith("@mail.sfsu.edu")){
+          setShowMessageButton(true);
+        }
+      })
+      .catch(e => "error loading the list listing" + e)
+  }
+
   useEffect(async () => {
     fetchListingDetail();
+    checkLogin();
   }, []);
 
   if (listingDetail !== null) {
@@ -77,9 +90,18 @@ const ListingDetail = ({ listings, isLoggedIn, match }) => {
                 </tr>
               </tbody>
             </table>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-              Send a message to Seller
-            </button>
+            { showMessageButton ? 
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Send a message to Seller
+                </button>
+                :
+                <>
+                  <button type="button" class="btn btn-primary" disabled>
+                  Send a message to Seller
+                  </button>
+                  <p className="text-muted">You need to be logged in as a SFSU Faculty or a student to send a message</p>
+                </>
+            }
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
